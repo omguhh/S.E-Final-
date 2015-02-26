@@ -1,0 +1,349 @@
+/*!
+* Custom CSS for the mainpages. ATM (19TH Jan) It's being used for the market insights page.
+*/
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,200);
+@import url(http://fonts.googleapis.com/css?family=Roboto:900,500,700);
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    background-color: #ffffff;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 35px;
+    text-transform: uppercase;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+p {
+    margin: 0 0 25px;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+@media(min-width:767px) {
+    p {
+        margin: 0 0 35px;
+        font-size: 20px;
+        line-height: 1.6;
+    }
+}
+
+a {
+    color: #219ab3;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: #e6e6fa;
+
+}
+
+.light {
+    font-family: 'Roboto', sans-serif;
+    font-weight:700;
+}
+
+.navbar-custom {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    text-transform: uppercase;
+    font-family: 'Raleway', sans-serif;
+    background: #303f9f;
+}
+
+.navbar-custom .navbar-brand {
+    font-weight: 400;
+}
+
+.navbar-custom .navbar-brand:focus {
+    outline: 0;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle {
+    padding: 4px 6px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle:focus,
+.navbar-custom .navbar-brand .navbar-toggle:active {
+    outline: 0;
+}
+
+.navbar-custom a {
+    color: #fff;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.navbar-custom .nav li.active {
+    outline: none;
+    border-bottom: solid 1px #ffffff;
+    /*background-color: rgba(255,255,255,.3);*/
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    border-bottom: 2px transparent;
+    border-bottom-style: solid
+
+}
+
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li a:focus
+{
+    outline: 0;
+    border-bottom: solid 2px #ffffff;
+    background-color: transparent;
+    transition-duration: 0.15s;
+}
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 5px 0;
+        border-bottom: 0;
+        letter-spacing: 1px;
+        background: #303f9f;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+        background-color: #000;
+
+    }
+
+    .navbar-custom.top-nav-collapse {
+        border-bottom: solid 2px #ffffff;
+    }
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+.login  {
+    float:right;
+    background-color: transparent;
+    text-transform: uppercase;
+    font-family:  'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    padding: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.login:hover {
+    background-color: #ffffff;
+    color: #303f9f;
+
+}
+
+
+.navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 1px;
+}
+
+/*FILLER BULLSHIT I WILL CHANGE THIS ALL */
+
+.intro {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.intro .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.header{
+    color: #474747;
+    font-weight: bold;
+    font-size: 30px;
+    width: 100%;
+    /*background-color: red;*/
+    text-align: left;
+}
+
+/*market ticker information.aka bs */
+#SP_market{text-align: left;padding: 5px; font-family: 'Roboto', sans-serif;font-weight: 700;}
+.legend_line{
+    top:3px;
+    width: 6px;
+    height: 20px;
+    display: inline-block;
+    zoom: 1;
+    background-color: #b500e9;
+}
+#SP_market p{
+    display: inline;
+    font-size: 20px;
+}
+
+.ticker-lows  {
+    font-size: 18px;
+    color: #cf5125;
+}
+
+.main-ticker { font-size: 27px !important; }
+.tiny-things, .tiny-things p {  font-size: 17px !important; color: #b3b3b3;font-weight: 500;}
+#container{margin-top: 115px; position: absolute;}
+
+
+
+/*Login Box CSS*/
+
+/* Popup Styles*/
+.popupHeader  {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform:  uppercase;
+}
+
+.popupHeader  {
+    background: #F4F4F2;
+    position: relative;
+    padding: 10px 20px;
+    border-bottom: 1px solid #DDD;
+}
+
+.popupHeader .modal_close  {
+    position:  absolute;
+    right:  0;
+    top: 0;
+    padding: 10px 15px;
+    background: #E4E4E2;
+    cursor:  pointer;
+    color: #aaa;
+    font-size: 16px;
+}
+
+.popupBody  {
+    padding: 20px;
+}
+
+/* Overlay when Modal is open */
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+/* Modal box or Popup box */
+.popupContainer{
+    position:absolute;
+    width:330px;
+    height: auto;
+    left:45%;
+    top:80px;
+    background: #FFF;
+}
+
+/* User Login Form */
+.user_login  {
+    display:  none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+}
+
+.user_login label  {
+    font-family: 'Raleway', sans-serif;
+    display:  block;
+    margin-bottom: 5px;
+}
+
+.user_login input[type="text"],  .user_login input[type="email"],  .user_login input[type="password"]  {
+    font-family: 'Raleway', sans-serif;
+    display:  block;
+    width: 90%;
+    padding:  10px;
+    border: 1px solid #DDD;
+    color: #666;
+}
+
+.forgot_password  {
+    font-family: 'Raleway', sans-serif;
+    display: block;
+    margin:  20px 0 10px;
+    clear:  both;
+    overflow:  hidden;
+    text-decoration:  none;
+    color: #212121;
+}
+
+
+.btn_red  {
+    background: #3948da;
+    color:  #FFF;
+}
+
+.btn_red:hover {
+    background: #303f9f;
+    color: #FFF;
+}
+
+footer {
+    background-color: #263238;
+    padding: 20px 0;
+}
+
+footer p {
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin:15px 115px 0;
+    font-weight: 400;
+    text-align: left;
+    font-size: 85%;
+}
