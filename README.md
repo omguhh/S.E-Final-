@@ -5,6 +5,10 @@ C:\xampp\htdocs\SE_Repo\S.E-Final-
 
 To view it on your browser type in http://localhost/SE_Repo/S.E-Final-/public/
 
+(When you're pushing the project for the first time make sure you're setting the parent path to xampp and not the default
+project path by PHPStorm)
+
+
 Good luck :) 
 
 
