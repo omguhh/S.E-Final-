@@ -1,3 +1,13 @@
+## Setup
+
+Install this in your htdocs folder in xampp,with the folder being called SE_Repo. So your path should be something like
+C:\xampp\htdocs\SE_Repo\S.E-Final-
+
+To view it on your browser type in http://localhost/SE_Repo/S.E-Final-/public/
+
+Good luck :) 
+
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
