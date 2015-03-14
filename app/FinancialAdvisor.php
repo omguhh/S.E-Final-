@@ -26,7 +26,7 @@ class FinancialAdvisor extends \Eloquent {
 
     public function purch_history()
     {
-        return $this->hasMany('App\Purchase_history');
+        return $this->hasMany('App\Purchase_history','fa_name');
     }
 
     public function stocks()

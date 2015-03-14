@@ -8,4 +8,13 @@ class Purchase_history extends \Eloquent {
 
 	protected $fillable = [];
 
+    public function Registered_Client()
+    {
+        return $this->belongsTo('Registered_Client','client_name');
+    }
+
+    public function FA()
+    {
+        return $this->belongsTo('FinancialAdvisor','fa_name');
+    }
 }

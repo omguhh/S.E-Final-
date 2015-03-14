@@ -8,4 +8,9 @@ class Roles extends \Eloquent {
 
 	protected $fillable = [];
 
+    public function users()
+    {
+        return $this->hasMany('user_id','user_id');
+    }
+
 }
