@@ -372,14 +372,14 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	/**
 	 * Register an observer with the Model.
 	 *
-	 * @param  object  $class
+	 * @param  object|string  $class
 	 * @return void
 	 */
 	public static function observe($class)
 	{
 		$instance = new static;
 
-		$className = get_class($class);
+		$className = is_string($class) ? $class : get_class($class);
 
 		// When registering a model observer, we will spin through the possible events
 		// and determine if this observer has that method. If it does, we will hook
@@ -1060,7 +1060,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 		{
 			$caller = $trace['function'];
 
-			return ( ! in_array($caller, Model::$manyMethods) && $caller != $self);
+			return ! in_array($caller, Model::$manyMethods) && $caller != $self;
 		});
 
 		return ! is_null($caller) ? $caller['function'] : null;
@@ -3289,8 +3289,8 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 	 */
 	public function __isset($key)
 	{
-		return ((isset($this->attributes[$key]) || isset($this->relations[$key])) ||
-				($this->hasGetMutator($key) && ! is_null($this->getAttributeValue($key))));
+		return (isset($this->attributes[$key]) || isset($this->relations[$key])) ||
+				($this->hasGetMutator($key) && ! is_null($this->getAttributeValue($key)));
 	}
 
 	/**

@@ -1,6 +1,4 @@
-@extends('app')
 
-@section('header')
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
@@ -34,4 +32,3 @@
 	</div>
 	<!-- /.container -->
 </nav>
-@stop

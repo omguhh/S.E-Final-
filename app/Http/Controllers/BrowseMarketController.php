@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
+
 class BrowseMarketController extends Controller {
 
 	/*
@@ -53,19 +55,24 @@ class BrowseMarketController extends Controller {
 						'Change' => $quotes[$i]->Change,
 						'Open' => $quotes[$i]->Open,
 						'DaysHigh' => $quotes[$i]->DaysHigh,
-						'DaysLow' => $quotes[$i]->DaysLow
+						'DaysLow' => $quotes[$i]->DaysLow,
+//						'Change' => $quotes[$i]->Change,
+						'LastTradePriceOnly' =>$quotes[$i]->LastTradePriceOnly
+
 					]);
 					$i++;
 
 				}
 
 			}
+
 		}
 
-		return view('browsemarket')->with('test', $someArray);
+		//return View('browsemarket')->with('test', $someArray);
+        return view('browsemarket')->with('test',$someArray);
+        //return View::make('index');
 
 	}
-
 
 
 }

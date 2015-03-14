@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class test extends Model {
+class test extends \Eloquent {
 
 	//
 
