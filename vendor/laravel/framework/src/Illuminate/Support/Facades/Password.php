@@ -8,37 +8,37 @@ class Password extends Facade {
 	/**
 	 * Constant representing a successfully sent reminder.
 	 *
-	 * @var string
+	 * @var int
 	 */
-	const RESET_LINK_SENT = 'passwords.sent';
+	const REMINDER_SENT = 'reminders.sent';
 
 	/**
 	 * Constant representing a successfully reset password.
 	 *
-	 * @var string
+	 * @var int
 	 */
-	const PASSWORD_RESET = 'passwords.reset';
+	const PASSWORD_RESET = 'reminders.reset';
 
 	/**
 	 * Constant representing the user not found response.
 	 *
-	 * @var string
+	 * @var int
 	 */
-	const INVALID_USER = 'passwords.user';
+	const INVALID_USER = 'reminders.user';
 
 	/**
 	 * Constant representing an invalid password.
 	 *
-	 * @var string
+	 * @var int
 	 */
-	const INVALID_PASSWORD = 'passwords.password';
+	const INVALID_PASSWORD = 'reminders.password';
 
 	/**
 	 * Constant representing an invalid token.
 	 *
-	 * @var string
+	 * @var int
 	 */
-	const INVALID_TOKEN = 'passwords.token';
+	const INVALID_TOKEN = 'reminders.token';
 
 	/**
 	 * Get the registered name of the component.

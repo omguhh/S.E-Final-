@@ -4,7 +4,6 @@ use Closure;
 use Carbon\Carbon;
 use LogicException;
 use Cron\CronExpression;
-use GuzzleHttp\Client as HttpClient;
 use Illuminate\Contracts\Mail\Mailer;
 use Symfony\Component\Process\Process;
 use Illuminate\Contracts\Container\Container;
@@ -76,11 +75,18 @@ class Event {
 	protected $output = '/dev/null';
 
 	/**
-	 * The array of callbacks to be run after the event is finished.
+	 * The e-mail addresses the command output should be sent to.
 	 *
 	 * @var array
 	 */
-	protected $afterCallbacks = [];
+	protected $emailAddresses = [];
+
+	/**
+	 * The callback to be run after the event is finished.
+	 *
+	 * @var \Closure
+	 */
+	protected $afterCallback;
 
 	/**
 	 * The human readable description of the event.
@@ -108,7 +114,7 @@ class Event {
 	 */
 	public function run(Container $container)
 	{
-		if (count($this->afterCallbacks) > 0)
+		if ($this->afterCallback || ! empty($this->emailAddresses))
 		{
 			$this->runCommandInForeground($container);
 		}
@@ -142,21 +148,49 @@ class Event {
 			trim($this->buildCommand(), '& '), base_path(), null, null, null
 		))->run();
 
-		$this->callAfterCallbacks($container);
+		if ($this->afterCallback)
+		{
+			$container->call($this->afterCallback);
+		}
+
+		if ($this->emailAddresses && $container->bound('Illuminate\Contracts\Mail\Mailer'))
+		{
+			$this->emailOutput($container->make('Illuminate\Contracts\Mail\Mailer'));
+		}
 	}
 
 	/**
-	 * Call all of the "after" callbacks for the event.
+	 * E-mail the output of the event to the recipients.
 	 *
-	 * @param  \Illuminate\Contracts\Container\Container  $container
+	 * @param  \Illuminate\Contracts\Mail\Mailer  $mailer
 	 * @return void
 	 */
-	protected function callAfterCallbacks(Container $container)
+	protected function emailOutput(Mailer $mailer)
 	{
-		foreach ($this->afterCallbacks as $callback)
+		$mailer->raw(file_get_contents($this->output), function($m)
 		{
-			$container->call($callback);
+			$m->subject($this->getEmailSubject());
+
+			foreach ($this->emailAddresses as $address)
+			{
+				$m->to($address);
+			}
+		});
+	}
+
+	/**
+	 * Get the e-mail subject line for output results.
+	 *
+	 * @return string
+	 */
+	protected function getEmailSubject()
+	{
+		if ($this->description)
+		{
+			return 'Scheduled Job Output ('.$this->description.')';
 		}
+
+		return 'Scheduled Job Output';
 	}
 
 	/**
@@ -179,7 +213,7 @@ class Event {
 	 */
 	public function isDue(Application $app)
 	{
-		if ( ! $this->runsInMaintenanceMode() && $app->isDownForMaintenance())
+		if ($app->isDownForMaintenance() && ! $this->runsInMaintenanceMode())
 		{
 			return false;
 		}
@@ -264,7 +298,9 @@ class Event {
 	 */
 	public function hourly()
 	{
-		return $this->cron('0 * * * * *');
+		$this->expression = '0 * * * * *';
+
+		return $this;
 	}
 
 	/**
@@ -274,7 +310,9 @@ class Event {
 	 */
 	public function daily()
 	{
-		return $this->cron('0 0 * * * *');
+		$this->expression = '0 0 * * * *';
+
+		return $this;
 	}
 
 	/**
@@ -309,7 +347,9 @@ class Event {
 	 */
 	public function twiceDaily()
 	{
-		return $this->cron('0 1,13 * * * *');
+		$this->expression = '0 1,13 * * * *';
+
+		return $this;
 	}
 
 	/**
@@ -399,7 +439,9 @@ class Event {
 	 */
 	public function weekly()
 	{
-		return $this->cron('0 0 * * 0 *');
+		$this->expression = '0 0 * * 0 *';
+
+		return $this;
 	}
 
 	/**
@@ -423,7 +465,9 @@ class Event {
 	 */
 	public function monthly()
 	{
-		return $this->cron('0 0 1 * * *');
+		$this->expression = '0 0 1 * * *';
+
+		return $this;
 	}
 
 	/**
@@ -433,7 +477,9 @@ class Event {
 	 */
 	public function yearly()
 	{
-		return $this->cron('0 0 1 1 * *');
+		$this->expression = '0 0 1 1 * *';
+
+		return $this;
 	}
 
 	/**
@@ -443,7 +489,9 @@ class Event {
 	 */
 	public function everyFiveMinutes()
 	{
-		return $this->cron('*/5 * * * * *');
+		$this->expression = '*/5 * * * * *';
+
+		return $this;
 	}
 
 	/**
@@ -453,7 +501,9 @@ class Event {
 	 */
 	public function everyTenMinutes()
 	{
-		return $this->cron('*/10 * * * * *');
+		$this->expression = '*/10 * * * * *';
+
+		return $this;
 	}
 
 	/**
@@ -463,7 +513,9 @@ class Event {
 	 */
 	public function everyThirtyMinutes()
 	{
-		return $this->cron('0,30 * * * * *');
+		$this->expression = '0,30 * * * * *';
+
+		return $this;
 	}
 
 	/**
@@ -474,9 +526,9 @@ class Event {
 	 */
 	public function days($days)
 	{
-		$days = is_array($days) ? $days : func_get_args();
+		$this->spliceIntoPosition(5, implode(',', is_array($days) ? $days : func_get_args()));
 
-		return $this->spliceIntoPosition(5, implode(',', $days));
+		return $this;
 	}
 
 	/**
@@ -584,58 +636,9 @@ class Event {
 			throw new LogicException("Must direct output to a file in order to e-mail results.");
 		}
 
-		$addresses = is_array($addresses) ? $addresses : func_get_args();
+		$this->emailAddresses = is_array($addresses) ? $addresses : func_get_args();
 
-		return $this->then(function(Mailer $mailer) use ($addresses)
-		{
-			$this->emailOutput($mailer, $addresses);
-		});
-	}
-
-	/**
-	 * E-mail the output of the event to the recipients.
-	 *
-	 * @param  \Illuminate\Contracts\Mail\Mailer  $mailer
-	 * @param  array  $addresses
-	 * @return void
-	 */
-	protected function emailOutput(Mailer $mailer, $addresses)
-	{
-		$mailer->raw(file_get_contents($this->output), function($m) use ($addresses)
-		{
-			$m->subject($this->getEmailSubject());
-
-			foreach ($addresses as $address)
-			{
-				$m->to($address);
-			}
-		});
-	}
-
-	/**
-	 * Get the e-mail subject line for output results.
-	 *
-	 * @return string
-	 */
-	protected function getEmailSubject()
-	{
-		if ($this->description)
-		{
-			return 'Scheduled Job Output ('.$this->description.')';
-		}
-
-		return 'Scheduled Job Output';
-	}
-
-	/**
-	 * Register a callback to the ping a given URL after the job runs.
-	 *
-	 * @param  string  $url
-	 * @return $this
-	 */
-	public function thenPing($url)
-	{
-		return $this->then(function() use ($url) { (new HttpClient)->get($url); });
+		return $this;
 	}
 
 	/**
@@ -646,7 +649,7 @@ class Event {
 	 */
 	public function then(Closure $callback)
 	{
-		$this->afterCallbacks[] = $callback;
+		$this->afterCallback = $callback;
 
 		return $this;
 	}
@@ -677,7 +680,9 @@ class Event {
 
 		$segments[$position - 1] = $value;
 
-		return $this->cron(implode(' ', $segments));
+		$this->expression = implode(' ', $segments);
+
+		return $this;
 	}
 
 	/**

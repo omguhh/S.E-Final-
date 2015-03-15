@@ -39,7 +39,7 @@ trait ResetsPasswords {
 	 */
 	public function postEmail(Request $request)
 	{
-		$this->validate($request, ['email' => 'required|email']);
+		$this->validate($request, ['email' => 'required']);
 
 		$response = $this->passwords->sendResetLink($request->only('email'), function($m)
 		{
@@ -92,7 +92,7 @@ trait ResetsPasswords {
 	{
 		$this->validate($request, [
 			'token' => 'required',
-			'email' => 'required|email',
+			'email' => 'required',
 			'password' => 'required|confirmed',
 		]);
 
@@ -128,11 +128,6 @@ trait ResetsPasswords {
 	 */
 	public function redirectPath()
 	{
-		if (property_exists($this, 'redirectPath'))
-		{
-			return $this->redirectPath;
-		}
-
 		return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
 	}
 

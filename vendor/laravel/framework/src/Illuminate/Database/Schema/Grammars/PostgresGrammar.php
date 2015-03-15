@@ -17,7 +17,7 @@ class PostgresGrammar extends Grammar {
 	 *
 	 * @var array
 	 */
-	protected $serials = array('bigInteger', 'integer', 'mediumInteger', 'smallInteger', 'tinyInteger');
+	protected $serials = array('bigInteger', 'integer');
 
 	/**
 	 * Compile the query to determine if a table exists.
@@ -307,7 +307,7 @@ class PostgresGrammar extends Grammar {
 	 */
 	protected function typeMediumInteger(Fluent $column)
 	{
-		return $column->autoIncrement ? 'serial' : 'integer';
+		return 'integer';
 	}
 
 	/**
@@ -318,7 +318,7 @@ class PostgresGrammar extends Grammar {
 	 */
 	protected function typeTinyInteger(Fluent $column)
 	{
-		return $column->autoIncrement ? 'smallserial' : 'smallint';
+		return 'smallint';
 	}
 
 	/**
@@ -329,7 +329,7 @@ class PostgresGrammar extends Grammar {
 	 */
 	protected function typeSmallInteger(Fluent $column)
 	{
-		return $column->autoIncrement ? 'smallserial' : 'smallint';
+		return 'smallint';
 	}
 
 	/**

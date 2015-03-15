@@ -98,13 +98,8 @@ class RedirectResponse extends BaseRedirectResponse {
 	{
 		$input = $input ?: $this->request->input();
 
-		$this->session->flashInput($data = array_filter($input, $callback = function (&$value) use (&$callback)
+		$this->session->flashInput(array_filter($input, function ($value)
 		{
-			if (is_array($value))
-			{
-				$value = array_filter($value, $callback);
-			}
-
 			return ! $value instanceof UploadedFile;
 		}));
 

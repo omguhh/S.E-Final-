@@ -80,6 +80,8 @@ class ReflectionConstant implements \Reflector
      *
      * Currently returns null, because if it returns a file name the signature
      * formatter will barf.
+     *
+     * @return null
      */
     public function getFileName()
     {
@@ -91,6 +93,8 @@ class ReflectionConstant implements \Reflector
      * Get the code start line.
      *
      * @throws \RuntimeException
+     *
+     * @return void
      */
     public function getStartLine()
     {
@@ -101,6 +105,8 @@ class ReflectionConstant implements \Reflector
      * Get the code end line.
      *
      * @throws \RuntimeException
+     *
+     * @return void
      */
     public function getEndLine()
     {
@@ -121,6 +127,8 @@ class ReflectionConstant implements \Reflector
      * Export the constant? I don't think this is possible.
      *
      * @throws \RuntimeException
+     *
+     * @return void
      */
     public static function export()
     {

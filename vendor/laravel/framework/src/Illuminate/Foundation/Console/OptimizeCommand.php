@@ -66,6 +66,10 @@ class OptimizeCommand extends Command {
 			$this->info('Compiling common classes');
 
 			$this->compileClasses();
+
+			$this->info('Compiling views');
+
+			$this->compileViews();
 		}
 		else
 		{
@@ -82,7 +86,7 @@ class OptimizeCommand extends Command {
 	{
 		$this->registerClassPreloaderCommand();
 
-		$outputPath = $this->laravel['path.base'].'/vendor/compiled.php';
+		$outputPath = $this->laravel['path.storage'].'/framework/compiled.php';
 
 		$this->callSilent('compile', array(
 			'--config' => implode(',', $this->getClassFiles()),
@@ -120,6 +124,34 @@ class OptimizeCommand extends Command {
 	protected function registerClassPreloaderCommand()
 	{
 		$this->getApplication()->add(new PreCompileCommand);
+	}
+
+	/**
+	 * Compile all view files.
+	 *
+	 * @return void
+	 */
+	protected function compileViews()
+	{
+		foreach ($this->laravel['view']->getFinder()->getPaths() as $path)
+		{
+			foreach ($this->laravel['files']->allFiles($path) as $file)
+			{
+				try
+				{
+					$engine = $this->laravel['view']->getEngineFromPath($file);
+				}
+				catch (InvalidArgumentException $e)
+				{
+					continue;
+				}
+
+				if ($engine instanceof CompilerEngine)
+				{
+					$engine->getCompiler()->compile($file);
+				}
+			}
+		}
 	}
 
 	/**

@@ -63,6 +63,8 @@ class MongoCursorPresenter extends ObjectPresenter
      * Normalize (empty) cursor query to always be an actual array.
      *
      * @param array $info Cursor info
+     *
+     * @return void
      */
     private function normalizeQueryArray(array &$info)
     {
@@ -81,6 +83,8 @@ class MongoCursorPresenter extends ObjectPresenter
      * Normalize (empty) cursor fields to always be an actual array.
      *
      * @param array $info Cursor info
+     *
+     * @return void
      */
     private function normalizeFieldsArray(array &$info)
     {
@@ -93,6 +97,8 @@ class MongoCursorPresenter extends ObjectPresenter
      * Unset boring fields from the Cursor info array.
      *
      * @param array $info Cursor info
+     *
+     * @return void
      */
     private function unsetBoringFields(array &$info)
     {
@@ -107,6 +113,8 @@ class MongoCursorPresenter extends ObjectPresenter
      * Unset ignored fields from the Cursor info array.
      *
      * @param array $info Cursor info
+     *
+     * @return void
      */
     private function unsetIgnoredFields(array &$info)
     {

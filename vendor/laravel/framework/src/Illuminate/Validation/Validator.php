@@ -276,16 +276,9 @@ class Validator implements ValidatorContract {
 
 		foreach ($data as $dataKey => $dataValue)
 		{
-			foreach ($rules as $ruleKey => $ruleValue)
+			foreach ($rules as $ruleValue)
 			{
-				if ( ! is_string($ruleKey))
-				{
-					$this->mergeRules("$attribute.$dataKey", $ruleValue);
-				}
-				else
-				{
-					$this->mergeRules("$attribute.$dataKey.$ruleKey", $ruleValue);
-				}
+				$this->mergeRules("$attribute.$dataKey", $ruleValue);
 			}
 		}
 	}
@@ -760,7 +753,7 @@ class Validator implements ValidatorContract {
 
 		$other = array_get($this->data, $parameters[0]);
 
-		return isset($other) && $value == $other;
+		return (isset($other) && $value == $other);
 	}
 
 	/**
@@ -775,9 +768,9 @@ class Validator implements ValidatorContract {
 	{
 		$this->requireParameterCount(1, $parameters, 'different');
 
-		$other = array_get($this->data, $parameters[0]);
+		$other = $parameters[0];
 
-		return isset($other) && $value != $other;
+		return isset($this->data[$other]) && $value != $this->data[$other];
 	}
 
 	/**
@@ -793,7 +786,7 @@ class Validator implements ValidatorContract {
 	{
 		$acceptable = array('yes', 'on', '1', 1, true, 'true');
 
-		return $this->validateRequired($attribute, $value) && in_array($value, $acceptable, true);
+		return ($this->validateRequired($attribute, $value) && in_array($value, $acceptable, true));
 	}
 
 	/**
@@ -1872,20 +1865,6 @@ class Validator implements ValidatorContract {
 		$parameters = $this->getAttributeList($parameters);
 
 		return str_replace(':values', implode(' / ', $parameters), $message);
-	}
-
-	/**
-	 * Replace all place-holders for the required_with_all rule.
-	 *
-	 * @param  string  $message
-	 * @param  string  $attribute
-	 * @param  string  $rule
-	 * @param  array   $parameters
-	 * @return string
-	 */
-	protected function replaceRequiredWithAll($message, $attribute, $rule, $parameters)
-	{
-		return $this->replaceRequiredWith($message, $attribute, $rule, $parameters);
 	}
 
 	/**

@@ -87,9 +87,7 @@ class EncryptCookies implements Middleware {
 		$decrypted = array();
 
 		foreach ($cookie as $key => $value)
-		{
 			$decrypted[$key] = $this->encrypter->decrypt($value);
-		}
 
 		return $decrypted;
 	}

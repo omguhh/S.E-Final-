@@ -123,11 +123,6 @@ class LengthAwarePaginator extends AbstractPaginator implements Arrayable, Array
 	 */
 	public function render(Presenter $presenter = null)
 	{
-		if (is_null($presenter) && static::$presenterResolver)
-		{
-			$presenter = call_user_func(static::$presenterResolver, $this);
-		}
-
 		$presenter = $presenter ?: new BootstrapThreePresenter($this);
 
 		return $presenter->render();

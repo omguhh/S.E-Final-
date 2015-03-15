@@ -85,7 +85,7 @@ class Route {
 	 *
 	 * @var array
 	 */
-	public static $validators;
+	protected static $validators;
 
 	/**
 	 * Create a new Route instance.

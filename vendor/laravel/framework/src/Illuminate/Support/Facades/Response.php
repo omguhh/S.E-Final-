@@ -1,7 +1,7 @@
 <?php namespace Illuminate\Support\Facades;
 
 /**
- * @see \Illuminate\Contracts\Routing\ResponseFactory
+ * @see \Illuminate\Events\Dispatcher
  */
 class Response extends Facade {
 

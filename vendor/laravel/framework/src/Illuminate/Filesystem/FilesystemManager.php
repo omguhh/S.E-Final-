@@ -134,7 +134,7 @@ class FilesystemManager implements FactoryContract {
 	 */
 	public function createS3Driver(array $config)
 	{
-		$s3Config = array_only($config, ['key', 'region', 'secret', 'signature', 'base_url']);
+		$s3Config = array_only($config, ['key', 'region', 'secret', 'signature']);
 
 		return $this->adapt(
 			new Flysystem(new S3Adapter(S3Client::factory($s3Config), $config['bucket']))
@@ -167,9 +167,7 @@ class FilesystemManager implements FactoryContract {
 	 */
 	protected function getRackspaceContainer(Rackspace $client, array $config)
 	{
-		$urlType = array_get($config, 'url_type');
-
-		$store = $client->objectStoreService('cloudFiles', $config['region'], $urlType);
+		$store = $client->objectStoreService('cloudFiles', $config['region']);
 
 		return $store->getContainer($config['container']);
 	}

@@ -393,30 +393,17 @@ class Dispatcher implements DispatcherContract {
 	{
 		return function() use ($class, $method)
 		{
-			$arguments = $this->cloneArgumentsForQueueing(func_get_args());
-
 			if (method_exists($class, 'queue'))
 			{
-				$this->callQueueMethodOnHandler($class, $method, $arguments);
+				$this->callQueueMethodOnHandler($class, $method, func_get_args());
 			}
 			else
 			{
 				$this->resolveQueue()->push('Illuminate\Events\CallQueuedHandler@call', [
-					'class' => $class, 'method' => $method, 'data' => serialize($arguments),
+					'class' => $class, 'method' => $method, 'data' => serialize(func_get_args()),
 				]);
 			}
 		};
-	}
-
-	/**
-	 * Clone the given arguments for queueing.
-	 *
-	 * @param  array  $arguments
-	 * @return array
-	 */
-	protected function cloneArgumentsForQueueing(array $arguments)
-	{
-		return array_map(function($a) { return is_object($a) ? clone $a : $a; }, $arguments);
 	}
 
 	/**

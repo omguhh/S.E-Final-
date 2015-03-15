@@ -47,11 +47,7 @@ class CallbackEvent extends Event {
 	 */
 	public function run(Container $container)
 	{
-		$response = $container->call($this->callback, $this->parameters);
-
-		parent::callAfterCallbacks($container);
-
-		return $response;
+		return $container->call($this->callback, $this->parameters);
 	}
 
 	/**

@@ -136,9 +136,9 @@ class Pipeline implements PipelineContract {
 	 */
 	protected function getInitialSlice(Closure $destination)
 	{
-		return function($passable) use ($destination)
+		return function() use ($destination)
 		{
-			return call_user_func($destination, $passable);
+			return call_user_func($destination, $this->passable);
 		};
 	}
 

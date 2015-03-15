@@ -13,10 +13,12 @@
 
 {{--@endfor--}}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
 
-<script src="../../public/js/highstock.js"></script>
-<script src="../../public/js/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/stock/highstock.js"></script>
+<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+
+
 
 <script type="text/javascript">
     $(function () {
@@ -24,39 +26,42 @@
                 seriesCounter = 0,
                 names = ['MSFT', 'AAPL', 'GOOG'],
         // create the chart when all data is loaded
-                createChart = new Highcharts.Chart({
+                createChart = function () {
+            chart1 = new Highcharts.StockChart({
+                chart: {
+                    renderTo: 'abox'
+                },
+                rangeSelector: {
+                    selected: 4
+                },
 
-                    rangeSelector: {
-                        selected: 4
-                    },
-
-                    yAxis: {
-                        labels: {
-                            formatter: function () {
-                                return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                            }
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 2,
-                            color: 'silver'
-                        }]
-                    },
-
-                    plotOptions: {
-                        series: {
-                            compare: 'percent'
+                yAxis: {
+                    labels: {
+                        formatter: function () {
+                            return (this.value > 0 ? ' + ' : '') + this.value + '%';
                         }
                     },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: 'silver'
+                    }]
+                },
 
-                    tooltip: {
-                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-                        valueDecimals: 2
-                    },
+                plotOptions: {
+                    series: {
+                        compare: 'percent'
+                    }
+                },
 
-                    series: seriesOptions
-                });
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                    valueDecimals: 2
+                },
 
+                series: seriesOptions
+            });
+        };
 
         $.each(names, function (i, name) {
 
@@ -72,13 +77,14 @@
                 seriesCounter += 1;
 
                 if (seriesCounter === names.length) {
-                    createChart().renderTo('#container2');
+                    createChart();
                 }
             });
         });
     });
-
 </script>
+
+<div id="abox" style="height: 400px; min-width: 310px"></div>
 
 <div class="header">Market Performance</div>
 
@@ -149,6 +155,5 @@
 </div>
 
 
-<div id="container2" style="height: 400px; min-width: 310px"></div>
 @stop
 

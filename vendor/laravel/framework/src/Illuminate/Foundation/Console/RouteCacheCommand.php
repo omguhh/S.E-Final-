@@ -83,7 +83,7 @@ class RouteCacheCommand extends Command {
 	}
 
 	/**
-	 * Build the route cache file.
+	 * Built the route cache file.
 	 *
 	 * @param  \Illuminate\Routing\RouteCollection  $routes
 	 * @return string

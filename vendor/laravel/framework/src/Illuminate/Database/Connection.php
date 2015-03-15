@@ -532,13 +532,9 @@ class Connection implements ConnectionInterface {
 	 */
 	public function pretend(Closure $callback)
 	{
-		$loggingQueries = $this->loggingQueries;
-
-		$this->enableQueryLog();
-
 		$this->pretending = true;
 
-		$this->queryLog = [];
+		$this->queryLog = array();
 
 		// Basically to make the database connection "pretend", we will just return
 		// the default values for all the query methods, then we will return an
@@ -546,8 +542,6 @@ class Connection implements ConnectionInterface {
 		$callback($this);
 
 		$this->pretending = false;
-
-		$this->loggingQueries = $loggingQueries;
 
 		return $this->queryLog;
 	}
@@ -651,18 +645,12 @@ class Connection implements ConnectionInterface {
 	/**
 	 * Determine if the given exception was caused by a lost connection.
 	 *
-	 * @param  \Illuminate\Database\QueryException  $e
+	 * @param  \Illuminate\Database\QueryException
 	 * @return bool
 	 */
 	protected function causedByLostConnection(QueryException $e)
 	{
-		$message = $e->getPrevious()->getMessage();
-
-		return str_contains($message, [
-			'server has gone away',
-			'no connection to the server',
-			'Lost connection',
-		]);
+		return str_contains($e->getPrevious()->getMessage(), 'server has gone away');
 	}
 
 	/**

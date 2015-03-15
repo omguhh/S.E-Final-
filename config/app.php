@@ -139,7 +139,7 @@ return [
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider',
-
+        'Aivo\Highchart\HighchartServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */

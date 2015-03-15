@@ -16,6 +16,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('browse_market', 'BrowseMarketController@display_data');
 
+Route::get('/stocks', 'StocksController@index');
 
 Route::get('admin_dashboard', 'AdminController@index');
 

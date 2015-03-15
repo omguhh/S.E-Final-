@@ -183,7 +183,7 @@ class Writer implements LogContract, PsrLoggerInterface {
 	 */
 	public function write($level, $message, array $context = array())
 	{
-		return $this->writeLog($level, $message, $context);
+		return $this->log($level, $message, $context);
 	}
 
 	/**

@@ -2,7 +2,6 @@
 
 use Illuminate\Config\Repository;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 
@@ -70,30 +69,10 @@ class LoadConfiguration {
 
 		foreach (Finder::create()->files()->name('*.php')->in($app->configPath()) as $file)
 		{
-			$nesting = $this->getConfigurationNesting($file);
-
-			$files[$nesting.basename($file->getRealPath(), '.php')] = $file->getRealPath();
+			$files[basename($file->getRealPath(), '.php')] = $file->getRealPath();
 		}
 
 		return $files;
-	}
-
-	/**
-	 * Get the configuration file nesting path.
-	 *
-	 * @param  \Symfony\Component\Finder\SplFileInfo  $file
-	 * @return string
-	 */
-	private function getConfigurationNesting(SplFileInfo $file)
-	{
-		$directory = dirname($file->getRealPath());
-
-		if ($tree = trim(str_replace(config_path(), '', $directory), DIRECTORY_SEPARATOR))
-		{
-			$tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree).'.';
-		}
-
-		return $tree;
 	}
 
 }

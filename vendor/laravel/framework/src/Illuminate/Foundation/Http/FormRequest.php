@@ -78,7 +78,7 @@ class FormRequest extends Request implements ValidatesWhenResolved {
 		}
 
 		return $factory->make(
-			$this->all(), $this->container->call([$this, 'rules']), $this->messages(), $this->attributes()
+			$this->all(), $this->container->call([$this, 'rules']), $this->messages()
 		);
 	}
 
@@ -128,7 +128,7 @@ class FormRequest extends Request implements ValidatesWhenResolved {
 	 */
 	public function response(array $errors)
 	{
-		if ($this->ajax() || $this->wantsJson())
+		if ($this->ajax())
 		{
 			return new JsonResponse($errors, 422);
 		}
@@ -211,21 +211,11 @@ class FormRequest extends Request implements ValidatesWhenResolved {
 	}
 
 	/**
-	 * Set custom messages for validator errors.
-	 *
-	 * @return array
-	 */
+	* Set custom messages for validator errors.
+	*
+	* @return array
+	*/
 	public function messages()
-	{
-		return [];
-	}
-	
-	/**
-	 * Set custom attributes for validator errors.
-	 *
-	 * @return array
-	 */
-	public function attributes()
 	{
 		return [];
 	}

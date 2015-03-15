@@ -248,7 +248,7 @@ class Router implements RegistrarContract {
 		}
 
 		$routable = (new ControllerInspector)
-							->getRoutable($prepended, $uri);
+		                    ->getRoutable($prepended, $uri);
 
 		// When a controller is routed using this method, we use Reflection to parse
 		// out all of the routable methods for the controller, then register each
@@ -478,7 +478,7 @@ class Router implements RegistrarContract {
 		}
 
 		$route = $this->newRoute(
-			$methods, $this->prefix($uri), $action
+			$methods, $uri = $this->prefix($uri), $action
 		);
 
 		// If we have groups that need to be merged, we will merge them now after this
@@ -595,7 +595,7 @@ class Router implements RegistrarContract {
 	{
 		$group = last($this->groupStack);
 
-		return isset($group['namespace']) && strpos($uses, '\\') !== 0 ? $group['namespace'].'\\'.$uses : $uses;
+		return isset($group['namespace']) ? $group['namespace'].'\\'.$uses : $uses;
 	}
 
 	/**
@@ -682,14 +682,11 @@ class Router implements RegistrarContract {
 		$middleware = $this->gatherRouteMiddlewares($route);
 
 		return (new Pipeline($this->container))
-						->send($request)
-						->through($middleware)
-						->then(function($request) use ($route)
+		                ->send($request)
+		                ->through($middleware)
+		                ->then(function($request) use ($route)
 						{
-							return $this->prepareResponse(
-								$request,
-								$route->run($request)
-							);
+							return $route->run($request);
 						});
 	}
 
@@ -699,13 +696,13 @@ class Router implements RegistrarContract {
 	 * @param  \Illuminate\Routing\Route  $route
 	 * @return array
 	 */
-	public function gatherRouteMiddlewares(Route $route)
+	protected function gatherRouteMiddlewares(Route $route)
 	{
 		return Collection::make($route->middleware())->map(function($m)
 		{
-			return Collection::make(array_get($this->middleware, $m, $m));
+			return array_get($this->middleware, $m, $m);
 
-		})->collapse()->all();
+		})->all();
 	}
 
 	/**
@@ -911,7 +908,7 @@ class Router implements RegistrarContract {
 			// developer a little greater flexibility to decide what will happen.
 			if ($callback instanceof Closure)
 			{
-				return call_user_func($callback, $value);
+				return call_user_func($callback);
 			}
 
 			throw new NotFoundHttpException;
@@ -1107,7 +1104,7 @@ class Router implements RegistrarContract {
 	{
 		$methods = $filter['methods'];
 
-		return is_null($methods) || in_array($method, $methods);
+		return (is_null($methods) || in_array($method, $methods));
 	}
 
 	/**
@@ -1128,7 +1125,7 @@ class Router implements RegistrarContract {
 	}
 
 	/**
-	 * Call the given route's after filters.
+	 * Call the given route's before filters.
 	 *
 	 * @param  \Illuminate\Routing\Route  $route
 	 * @param  \Illuminate\Http\Request  $request
@@ -1261,7 +1258,7 @@ class Router implements RegistrarContract {
 	 */
 	public function currentRouteName()
 	{
-		return $this->current() ? $this->current()->getName() : null;
+		return ($this->current()) ? $this->current()->getName() : null;
 	}
 
 	/**
@@ -1291,7 +1288,7 @@ class Router implements RegistrarContract {
 	 */
 	public function currentRouteNamed($name)
 	{
-		return $this->current() ? $this->current()->getName() == $name : false;
+		return ($this->current()) ? $this->current()->getName() == $name : false;
 	}
 
 	/**

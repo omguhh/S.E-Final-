@@ -17,7 +17,8 @@
     "phpspec/phpspec": "~2.1",
     "laracasts/generators": "~1.1",
     "xethron/migrations-generator": "dev-l5",
-    "way/generators": "dev-feature/laravel-five-stable"
+    "way/generators": "dev-feature/laravel-five-stable",
+    "mauro-moreno/laravel-highcharts": "dev-master"
   },
   "autoload": {
     "classmap": [

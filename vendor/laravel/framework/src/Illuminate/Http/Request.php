@@ -126,8 +126,8 @@ class Request extends SymfonyRequest implements ArrayAccess {
 	/**
 	 * Get a segment from the URI (1 based index).
 	 *
-	 * @param  int  $index
-	 * @param  mixed  $default
+	 * @param  string  $index
+	 * @param  mixed   $default
 	 * @return string
 	 */
 	public function segment($index, $default = null)
@@ -282,7 +282,7 @@ class Request extends SymfonyRequest implements ArrayAccess {
 	 *
 	 * @param  string  $key
 	 * @param  mixed   $default
-	 * @return string|array
+	 * @return string
 	 */
 	public function input($key = null, $default = null)
 	{
