@@ -82,6 +82,24 @@
             });
         });
     });
+
+
+    function getRealtimeData(symbol, callback) {
+        $.ajax({
+            url: "http://query.yahooapis.com/v1/public/yql?&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys",
+            jsonp: "callback",
+            dataType: "jsonp",
+            data: {
+                q: 'select * from yahoo.finance.historicaldata where symbol = "^GSPC" and startDate = "2014-09-11" and endDate = "2015-03-16',
+                format: "json"
+            },
+
+            success: function (response) {
+                var data = [Date.now(), parseFloat(response.query.results.quote.BidRealtime)];
+                callback(data);
+            }
+        });
+    }
 </script>
 
 <div id="abox" style="height: 400px; min-width: 310px"></div>
@@ -134,15 +152,13 @@
     </div>
 
     <div class="col-md-3" style="background-color: #303f9f;padding: 10px;">
-        <form id="searchthis"  style="display:inline;" method="post" action="retrieve_deets.php">
+            {{--{!! Form::open(['method' => 'POST', 'route' => ['BrowseMarket/search']]) !!}--}}
+
             <div class="form-group">
                 <div class="input-group">
-                    <input autocomplete="on" class="form-control" name="q" title="search"
-                           placeholder="Search stock ticker" id="search-query-3"
-                           style="width:145%;border-radius: 5px;height:40px;border-color:transparent;"/>
+                    {{--{!! Form::text(['class' => 'form-control','title' => 'search', 'placeholder' => 'Search Stock Ticker']) !!}--}}
                 </div>
-            </div>
-        </form>
+            {{--{!! Form::close() !!}--}}
 
         <p style="text-align: left;font-size: 18px;color:#fff;">
             <b> Recommended Symbols: </b> <br>

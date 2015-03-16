@@ -2,6 +2,8 @@
 
 use App\Admin;
 use App\FinancialAdvisor;
+use App\Registered_Client;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
@@ -22,6 +24,8 @@ class AdminController extends Controller
      *
      * @return void
      */
+
+
     public function __construct()
     {
         $this->middleware('guest');
@@ -35,28 +39,26 @@ class AdminController extends Controller
     public function index()
     {
 
-        $admin = FinancialAdvisor::all()->toJson();
-//      $admin = FinancialAdvisor::find('fa_name','hakim moti');
-        // $admin = FinancialAdvisor::all()->get('fa_id');
-        $test = json_decode($admin,true);
-        $i = 0;
-        $someArray = [];
-        var_dump($test);
+        $admin = FinancialAdvisor::all(['fa_id','fa_name']);
+        return \View::make('admindashboard.index')->with('admin', $admin);
+    }
 
-        foreach ($test->fa_id as $test) {
+    public function view_clients($id){
 
-            while ($i < count($test)) {
-                array_push($someArray, [
-                    'FA_ID' => $test[$i]->fa_id,
-                    'Fa_Name' => $test[$i]->fa_name
+//  SELECT rc_name FROM registered_client,financial_advisor WHERE registered_client.fa_name_fk = financial_advisor.fa_name GROUP BY rc_name
 
-                ]);
-                $i++;
+            $clients  = Registered_Client::all(['rc_name'])->first()
+            ->select('rc_id','rc_name')
+            ->join('financial_advisor', 'registered_client.fa_name_fk', '=', 'financial_advisor.fa_name')
+            ->where('fa_name_fk','=', $id)
+            ->get();
 
-            }
-                return \View::make('admindashboard')->with('admin', $someArray);
-            }
+        return \View::make('admindashboard.view')->with('clients',$clients);
+    }
 
-        }
+    public function delete_user($id){
+        Registered_Client::all()->first()->where('rc_id','=',$id)->delete();
+        return \View::make('home');
+    }
 
 }
