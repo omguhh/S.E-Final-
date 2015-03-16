@@ -34,3 +34,12 @@
 		<a>Add User</a>
 
 	</div>
+
+@for ($i = 0; $i < count($admin); $i++)
+
+{{'ID ' . $admin[$i]['FA_ID']}}
+<br>
+{{'Name ' . $admin[$i]['Fa_Name']}}
+<br>
+
+@endfor
