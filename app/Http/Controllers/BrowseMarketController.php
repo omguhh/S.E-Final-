@@ -19,8 +19,6 @@ class BrowseMarketController extends Controller {
 	 * @return void
 	 */
 
-
-
 //	public function __construct()
 //	{
 //		$this->middleware('auth');
@@ -48,7 +46,6 @@ class BrowseMarketController extends Controller {
 
 		if(!is_null($phpObj->query->results)) {
 			foreach ($phpObj->query->results as $quotes) {
-
 				while($i<count($quotes)){
 					array_push($someArray,[
 						'Symbol' => $quotes[$i]->Symbol,
