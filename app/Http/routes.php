@@ -18,6 +18,8 @@ Route::get('browse_market', 'BrowseMarketController@display_data');
 
 Route::get('/stocks', 'StocksController@index');
 
+Route::get('/FADashboard','FAController@index');
+
 Route::get('admin_dashboard', 'AdminController@index');
 Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_clients'));
 Route::post('BrowseMarket/search', array('as'=>'BrowseMarket/search','uses'=>'BrowseMarketController@display_data'));
