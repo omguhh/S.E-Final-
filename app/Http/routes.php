@@ -18,7 +18,7 @@ Route::get('browse_market', 'BrowseMarketController@display_data');
 
 Route::get('/stocks', 'StocksController@index');
 
-Route::get('/FADashboard','FAController@index');
+Route::get('/FADashboard/ayesha sheriff','FAController@viewCalendar');
 
 Route::get('admin_dashboard', 'AdminController@index');
 Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_clients'));

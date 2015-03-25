@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Calendar_meeting extends \Eloquent {
+class Calender_meeting extends \Eloquent {
 
-    protected $table = 'calendar_meeting';
+    protected $table = 'calender_meeting';
 	protected $fillable = [];
 
     public function FinancialAdvisor()

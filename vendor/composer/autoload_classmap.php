@@ -69,7 +69,7 @@ return array(
     'Aivo\\Highchart\\Tooltip\\Tooltip' => $vendorDir . '/mauro-moreno/laravel-highcharts/src/Aivo/Highchart/Tooltip/Tooltip.php',
     'Aivo\\Highchart\\Tooltip\\TooltipInterface' => $vendorDir . '/mauro-moreno/laravel-highcharts/api/Aivo/Highchart/Tooltip/TooltipInterface.php',
     'App\\Admin' => $baseDir . '/app/Admin.php',
-    'App\\Calendar_meeting' => $baseDir . '/app/Calendar_meeting.php',
+    'App\\Calender_meeting' => $baseDir . '/app/Calender_meeting.php',
     'App\\Commands\\Command' => $baseDir . '/app/Commands/Command.php',
     'App\\Console\\Commands\\Inspire' => $baseDir . '/app/Console/Commands/Inspire.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',

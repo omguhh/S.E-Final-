@@ -44,6 +44,7 @@
 
 <div >
     @include('FAcontent')
+
 </div>
 
 @include('FAfooter')
@@ -90,5 +91,9 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="http://localhost/I'mDoneWithSE/S.E-Final-/public/js/demo.js" type="text/javascript"></script>
+
+
+
+
 </body>
 </html>
