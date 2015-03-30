@@ -24,7 +24,7 @@
 
             <li><!--  CLients -->
                 <a href="#">
-                    <i class="fa fa-laptop"></i>
+                    <i class="fa fa-user"></i>
                     <span>My Clients</span>
                 </a>
             </li>
@@ -37,13 +37,13 @@
 
             <li><!--  Browse Market -->
                 <a href="#">
-                    <i class="fa fa-table"></i> <span>Browse Market</span>
+                    <i class="fa fa-search"></i> <span>Browse Market</span>
                 </a>
             </li>
 
             <li><!--  Messages -->
                 <a href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/mailbox.html">
-                    <i class="fa fa-envelope"></i> <span>Messages</span>
+                    <i class="fa fa-envelope-o"></i> <span>Messages</span>
                 </a>
             </li>
 
