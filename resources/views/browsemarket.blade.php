@@ -21,84 +21,59 @@
 
 
 <script type="text/javascript">
-    $(function () {
-        var seriesOptions = [],
-                seriesCounter = 0,
-                names = ['MSFT', 'AAPL', 'GOOG'],
-        // create the chart when all data is loaded
-                createChart = function () {
-            chart1 = new Highcharts.StockChart({
-                chart: {
-                    renderTo: 'abox'
-                },
-                rangeSelector: {
-                    selected: 4
-                },
+    var quoteData = [];
 
-                yAxis: {
-                    labels: {
-                        formatter: function () {
-                            return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                        }
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 2,
-                        color: 'silver'
-                    }]
-                },
+    $(function() {
 
-                plotOptions: {
-                    series: {
-                        compare: 'percent'
-                    }
-                },
+        var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22YHOO%22%20and%20startDate%20%3D%20%222014-09-11%22%20and%20endDate%20%3D%20%222015-03-10%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=&";
 
-                tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-                    valueDecimals: 2
-                },
 
-                series: seriesOptions
-            });
-        };
+        $.getJSON(url, function(data){
 
-        $.each(names, function (i, name) {
+            $.each(data.query.results.quote, function(index, value) {
+                var theTime = value.Date;
+                var milliTime = new Date(theTime);
+                milliTime = milliTime.getTime();
+                var results = [milliTime, parseFloat(value.Low),parseFloat(value.High)];
+                quoteData.push(results);
 
-            $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=' + name.toLowerCase() + '-c.json&callback=?',    function (data) {
+            })
 
-                seriesOptions[i] = {
-                    name: name,
-                    data: data
-                };
+            createChart(quoteData);
 
-                // As we're loading the data asynchronously, we don't know what order it will arrive. So
-                // we keep a counter and create the chart when all the data is loaded.
-                seriesCounter += 1;
-
-                if (seriesCounter === names.length) {
-                    createChart();
-                }
-            });
         });
+
+        //setTimeout("createChart()", 1000);
+
     });
 
+    function createChart(data) {
+        quoteData = quoteData.reverse();
+        console.log('quoteData', quoteData);
 
-    function getRealtimeData(symbol, callback) {
-        $.ajax({
-            url: "http://query.yahooapis.com/v1/public/yql?&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys",
-            jsonp: "callback",
-            dataType: "jsonp",
-            data: {
-                q: 'select * from yahoo.finance.historicaldata where symbol = "^GSPC" and startDate = "2014-09-11" and endDate = "2015-03-16',
-                format: "json"
+        // Create the chart
+        window.chart = new Highcharts.StockChart({
+            chart : {
+                renderTo : 'abox'
             },
 
-            success: function (response) {
-                var data = [Date.now(), parseFloat(response.query.results.quote.BidRealtime)];
-                callback(data);
-            }
+            rangeSelector : {
+                selected : 1
+            },
+
+            title : {
+                text : 'YAHOO Stock Price'
+            },
+
+            series : [{
+                name : 'YHOO',
+                data : data,
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
         });
+
     }
 </script>
 

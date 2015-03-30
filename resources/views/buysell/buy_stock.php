@@ -9,12 +9,13 @@
 
             <thead>
             <tr>
-                <th>Registered Client ID</th>
-                <th>Registered Client Name</th>
-                <th>Action</th>
+                <th>Stock_name</th>
+                <th>Stock Value</th>
+                <th>Stock Quantity</th>
             </tr>
             </thead>
             <tbody>
+            @for ($i = 0; $i < count($clients); $i++)
                 <tr>
                     <td>{{$clients[$i]['rc_id']}}</td>
                     <td>{{$clients[$i]['rc_name']}}</td>

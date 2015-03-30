@@ -7,6 +7,8 @@ class Registered_Client extends \Eloquent {
     protected $table = 'registered_client';
 	protected $fillable = [];
 
+    public $timestamps = false;
+
 //    one client has one purchase history..
     public function purchase_history()
     {

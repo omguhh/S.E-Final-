@@ -19,16 +19,14 @@ Route::get('browse_market', 'BrowseMarketController@display_data');
 Route::get('/stocks', 'StocksController@index');
 Route::get('/Calendar','CalendarController@index');
 
-Route::get('/FADashboard/ayesha sheriff','FAController@viewCalendar');
-Route::get('/Login/{id}','auth');
+Route::get('/FADashboard','FAController@index');
 
 Route::get('admin_dashboard', 'AdminController@index');
-
 Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_clients'));
 Route::post('BrowseMarket/search', array('as'=>'BrowseMarket/search','uses'=>'BrowseMarketController@display_data'));
 Route::delete('user/delete/{id}', array('as'=>'user/delete','uses'=>'AdminController@delete_user'));
 
- Route::controllers([
- 	'auth' => 'Auth\AuthController',
- 	'password' => 'Auth\PasswordController',
- ]);
+// Route::controllers([
+// 	'auth' => 'Auth\AuthController',
+// 	'password' => 'Auth\PasswordController',
+// ]);
