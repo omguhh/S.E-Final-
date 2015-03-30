@@ -21,9 +21,12 @@ Route::get('/stocks', 'StocksController@index');
 Route::get('/FADashboard','FAController@index');
 
 Route::get('admin_dashboard', 'AdminController@index');
+//Route::get('admin_dashboard', 'AdminController@insert_user');
 Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_clients'));
 Route::post('BrowseMarket/search', array('as'=>'BrowseMarket/search','uses'=>'BrowseMarketController@display_data'));
 Route::delete('user/delete/{id}', array('as'=>'user/delete','uses'=>'AdminController@delete_user'));
+
+Route::get('BrowseMarket/buy', array('as'=>'BrowserMarket/buy', 'uses=>BrowseMarketController@buy_stock'));
 
 // Route::controllers([
 // 	'auth' => 'Auth\AuthController',
