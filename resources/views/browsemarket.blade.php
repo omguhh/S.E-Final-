@@ -127,13 +127,14 @@
     </div>
 
     <div class="col-md-3" style="background-color: #303f9f;padding: 10px;">
-            {{--{!! Form::open(['method' => 'POST', 'route' => ['BrowseMarket/search']]) !!}--}}
 
-            <div class="form-group">
-                <div class="input-group">
-                    {{--{!! Form::text(['class' => 'form-control','title' => 'search', 'placeholder' => 'Search Stock Ticker']) !!}--}}
-                </div>
-            {{--{!! Form::close() !!}--}}
+            {{--<div class="form-group">--}}
+                {{--<div class="input-group">--}}
+               {{--</div>--}}
+
+        {!! Form::open(array('route' => 'browse_market/search')) !!}
+        {!! Form::text('stockname'); !!}
+        {!! Form::close() !!}
 
         <p style="text-align: left;font-size: 18px;color:#fff;">
             <b> Recommended Symbols: </b> <br>

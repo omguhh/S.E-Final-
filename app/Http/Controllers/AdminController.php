@@ -53,6 +53,11 @@ class AdminController extends Controller
             ->where('fa_name_fk','=', $id)
             ->get();
 
+        $money = Registered_Client::(['cash_balance'])
+            ->decrement('cash_balance',50)
+            ->where('rc_name', 'shoaib mawani')
+            ->get();
+
         return \View::make('admindashboard.view')->with('clients',$clients);
     }
 
@@ -61,22 +66,21 @@ class AdminController extends Controller
         return \View::make('home');
     }
 
-    public function insert_user(){
-        $rc_user= new Registered_Client;
-        $rc_user->rc_id= "myid";
-        $rc_user->user_id="1005";
-        $rc_user->rc_email= "vc@email.com";
-        $rc_user->rc_address= "vc@email.com";
-        $rc_user->rc_phone= "819812";
-        $rc_user->cash_balance= "3821313391";
-        $rc_user->fa_name_fk= "sonia santa";
-        $rc_user->user_id= "vc@email.com";
-        $rc_user->client_password= "vc@email.com";
-       // $rc_user->email= "vc@email.com";
-
-        $rc_user->save();
-
-
-    }
+//    public function insert_user($rc_input_id,$rc_input_name){
+//        $rc_user= new Registered_Client;
+//        $rc_user->rc_id= $rc_input_id;
+//        $rc_user->rc_name= $rc_input_name;
+//        $rc_user->rc_email= "vc@email.com";
+//        $rc_user->rc_address= "vc@email.com";
+//        $rc_user->rc_phone= "819812";
+//        $rc_user->cash_balance= "3821313391";
+//        $rc_user->fa_name_fk= "sonia santa";
+//        $rc_user->user_id= "1020";
+//        $rc_user->client_password= "poo";
+//       // $rc_user->email= "vc@email.com";
+//        $rc_user->save();
+//        return \View::make('home');
+//
+//    }
 
 }

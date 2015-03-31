@@ -73,6 +73,54 @@ class BrowseMarketController extends Controller
 
     }
 
+    public function search_stock()
+    {
+        $data = \Request::input('stockname');
+
+        $yql_base_url = "http://query.yahooapis.com/v1/public/yql";
+        $yql_query = "select * from yahoo.finance.quote where symbol in ('.$data .')";
+        $yql_query_url = $yql_base_url . "?q=" . urlencode($yql_query) . "&env=store://datatables.org/alltableswithkeys";
+        $yql_query_url .= "&format=json";
+
+        $session = curl_init($yql_query_url);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        $json = curl_exec($session);
+        $phpObj = json_decode($json);
+        $i = 0;
+        $someArray = [];
+
+        if (!is_null($phpObj->query->results)) {
+            foreach ($phpObj->query->results as $quote) {
+                while ($i < count($quote)) {
+                    array_push($someArray, [
+                        'Symbol' => $quote[$i]->Symbol,
+                        'AverageDailyVolume' => $quote[$i]->AverageDailyVolume,
+                        'Change' => $quote[$i]->Change,
+                        'DaysHigh' => $quote[$i]->DaysHigh,
+                        'DaysLow' => $quote[$i]->DaysLow,
+
+                        'YearLow' => $quote[$i]->YearLow,
+                        'YearHigh' => $quote[$i]->YearHigh,
+                        'MarketCapitalization' => $quote[$i]->MarketCapitalization,
+                        'LastTradePriceOnly' => $quote[$i]->LastTradePriceOnly,
+
+                        'DaysRange' => $quote[$i]->DaysRange,
+                        'Name' => $quote[$i]->Name,
+                        'Volume' => $quote[$i]->Volume,
+                        'StockExchange' => $quote[$i]->StockExchange
+
+                    ]);
+                    $i++;
+
+                }
+
+            }
+
+        }
+
+        return \View::make('browseMarketSearch')->with('test', $someArray);
+    }
+
     public function stock_buy()
     {
     //insert into the stock database lke this
@@ -92,12 +140,13 @@ class BrowseMarketController extends Controller
         $rc_user->fa_name= "sonia santa";
         $rc_user->stock_name= "msft";
         $rc_user->date_brought= 2015-02-27;
-
-
         $rc_user->save();
+        $rc_money=new Registered_Client;
+        $rc_money->cash_balance
         return view('buysell/buy_stock');
 
 
-
     }
+
+
 }

@@ -15,10 +15,9 @@
             </tr>
             </thead>
             <tbody>
-            @for ($i = 0; $i < count($clients); $i++)
-                <tr>
-                    <td>{{$clients[$i]['rc_id']}}</td>
-                    <td>{{$clients[$i]['rc_name']}}</td>
+            <tr>
+                    <td>{{$stocks[$i]['stock_id']}}</td>
+                    <td>{{$stocks[$i]['stock_name']}}</td>
                     <td>
 
                         {!! Form::open(['method' => 'DELETE', 'route' => ['user/delete',$clients[$i]['rc_id']]]) !!}
