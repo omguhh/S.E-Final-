@@ -30,7 +30,7 @@
             </li>
 
             <li><!--  Calendar -->
-                <a href="#">
+                <a href="http://localhost/I'mDoneWithSE/S.E-Final-/public/Calendar">
                     <i class="fa fa-calendar"></i> <span>Calendar</span>
                 </a>
             </li>
