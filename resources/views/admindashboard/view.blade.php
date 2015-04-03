@@ -25,7 +25,9 @@
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}
 
-
+                        {!! Form::open(array('route' => 'admin_dashboard/add')) !!}
+                        {!! Form::submit('Add', ['class' => 'btn btn-success']) !!}
+                        {!! Form::close() !!}
 
                         {{--<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</a></td>--}}
                 </tr>
