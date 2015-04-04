@@ -43,6 +43,11 @@ Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_client
 Route::delete('user/delete/{id}', array('as'=>'user/delete','uses'=>'AdminController@delete_user'));
 
 Route::post('admin_dashboard/add', array('as'=>'admin_dashboard/add','uses'=>'AdminController@show_insert_form'));
+Route::post('admin_dashboard/addFA', array('as'=>'admin_dashboard/addFA','uses'=>'AdminController@show_FA_insert_form'));
+
+Route::post('admin_dashboard/insert_FA', array('as'=>'admin_dashboard/insertFA','uses'=>'AdminController@insert_FA'));
+Route::post('admin_dashboard/insert_user', array('as'=>'admin_dashboard/insert_user','uses'=>'AdminController@insert_user'));
+
 
 // Route::controllers([
 // 	'auth' => 'Auth\AuthController',
