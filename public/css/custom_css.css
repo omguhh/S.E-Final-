@@ -363,3 +363,16 @@ footer p {
     text-align: center;
 }
 
+#walletz
+{
+    /*width: 250px;*/
+    /*border: solid black;*/
+    /*border-radius: 10px;*/
+    padding: 10px;
+    /*background-color: #F2F2F2;*/
+}
+
+#sprtr
+{
+    border-top: solid #8C8C8C
+}
