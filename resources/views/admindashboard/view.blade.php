@@ -5,6 +5,11 @@
     <div class="col-lg-12" style="width: 100% !important;">
 
     <h1> User Administration</h1>
+
+        {!! Form::open(array('route' => 'admin_dashboard/add')) !!}
+        {!! Form::submit('Add', ['class' => 'btn btn-success']) !!}
+        {!! Form::close() !!}
+
     {{--<a href={{route("admin_dashboard/addclient")}} class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add New Client</a>--}}
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -25,10 +30,6 @@
 
                         {!! Form::open(['method' => 'DELETE', 'route' => ['user/delete',$clients[$i]['rc_id']]]) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                        {!! Form::close() !!}
-
-                        {!! Form::open(array('route' => 'admin_dashboard/add')) !!}
-                      <span> {!! Form::submit('Add', ['class' => 'btn btn-success']) !!} </span>
                         {!! Form::close() !!}
 
                         {{--<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</a></td>--}}

@@ -4,8 +4,13 @@
     <div class="container">
         <div class="col-lg-12" style="width: 100% !important;">
 
-		<h1>Admin Dashboard </h1>
-       		<div class="table-responsive">
+		<h1>Admin Dashboard </h1>   <span>
+
+        {!! Form::open(array('route' => 'admin_dashboard/addFA')) !!}
+        {!! Form::submit('Add New FA', ['class' => 'btn btn-success']) !!}
+        {!! Form::close() !!}</span>
+
+            <div class="table-responsive">
 			<table class="table table-bordered table-striped">
 
 				<thead>
@@ -20,7 +25,9 @@
 				<tr>
 						<td><a href={{ URL::route('user',$admin[$i]['fa_name']) }} > {{$admin[$i]['fa_id']}}</a> </td>
 						<td>{{$admin[$i]['fa_name']}}</td>
-                        <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</a></td>
+                        <td>{!! Form::open(['method' => 'DELETE', 'route' => ['user/delete',$admin[$i]['fa_id']]]) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::close() !!}</td>
 					</tr>
 
                 @endfor
