@@ -28,7 +28,10 @@ Route::get('clientport/display/mydetails', array('as'=>'clientport/display/mydet
 Route::get('/stocks', 'StocksController@index');
 Route::get('/Calendar','CalendarController@index');
 
-Route::get('/FADashboard','FAController@index');
+Route::get('/FADashboard','FAController@viewCalendar');
+Route::get('/FAClient','FAController@view_clients');
+
+Route::get('refresh' , array('as' => 'refresh', 'uses' => 'FAController@viewCalendar'));
 
 Route::get('/PurchaseHistory','purchasehistorycontroller@index');
 

@@ -16,8 +16,25 @@ class FAController extends Controller {
 	 */
 	public function index()
 	{
-		return view('FAapp');
+
+		$clients  = Registered_Client::all(['rc_name'])->first()
+			->select('rc_id','rc_name','rc_email','rc_address','rc_phone','cash_balance')
+			->join('financial_advisor', 'registered_client.fa_name_fk', '=', 'financial_advisor.fa_name')
+			->where('fa_name_fk','=', 'ayesha sheriff')
+			->get();
+		return \View::make('main')->with('client', $clients);
+
 	}
+
+	public function view_clients(){
+		$client  = Registered_Client::all(['rc_name'])->first()
+			->select('rc_id','rc_name','rc_email','rc_address','rc_phone','cash_balance')
+			->join('financial_advisor', 'registered_client.fa_name_fk', '=', 'financial_advisor.fa_name')
+			->where('fa_name_fk','=', 'ayesha sheriff')
+			->get();
+		return \View::make('FAClient')->with('client', $client);
+	}
+
 
 	public function viewCalendar(){
 		//SELECT rc_name FROM registered_client,financial_advisor WHERE registered_client.fa_name_fk = financial_advisor.fa_name GROUP BY rc_name
@@ -41,7 +58,7 @@ class FAController extends Controller {
 			->where('fa_name_fk','=','ayesha sheriff')
 			->get();
 
-		return \View::make('fake')->with('clients',$clients);
+		return \View::make('main')->with('clients',$clients);
 
 //            $clients  = Registered_Client::all(['registered_client.rc_id'])->first();
 //						FinancialAdvisor::all(['financial_advisor.fa_name'])->first();

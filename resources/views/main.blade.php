@@ -1,9 +1,406 @@
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pi";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM calender_meeting where fa_name='ayesha sheriff'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $RC_ID=$row["rc_id"];
+        $MeetingTitle=$row["meeting_title"];
+        $MeetingDate=$row["meeting_date"];
+        $MeetingContent=$row["meeting_content"];
+        //echo "rcID:" . $row["rc_id"]. " - MeetingTitle: " . $row["meeting_title"]. "- MeetingDate " . $row["meeting_date"]. "<br>";
+    }
+
+} else {
+    echo "0 results";
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title> Financial Advisor| Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/jquery.min.js"></script>
+    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/jquery-ui.custom.min.js"></script>
+    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.js"></script>
+    <script src="http://localhost/I'mDoneWithSE/S.E-Final-/fullcalendar/lib/moment.js"></script>
+    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.min.js"></script>
+
+
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Righteous'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/style_v1.css">{{-- //for the pop up--}}
+    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/bootstrap.css">
+    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/app.css">
+    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/jquery-ui.css">
+    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/custom_css.css">
+
+    <script>
+
+
+
+        /*-------------------------------------------
+         Dynamically load plugin scripts
+         ---------------------------------------------*/
+        //
+        // Dynamically load Fullcalendar Plugin Script
+        // homepage: http://arshaw.com/fullcalendar
+        // require moment.js
+        //
+
+        function LoadCalendarScript(callback){
+            function LoadFullCalendarScript(){
+                if(!$.fn.fullCalendar){
+                    $.getScript("http://localhost/I'mDoneWithSE/S.E-Final-/fullcalendar/lib/moment.js", callback);
+                }
+                else {
+                    if (callback && typeof(callback) === "function") {
+                        callback();
+                    }
+                }
+            }
+            if (!$.fn.moment){
+                $.getScript("http://localhost/I'mDoneWithSE/S.E-Final-/fullcalendar/lib/moment.js", LoadFullCalendarScript);
+            }
+            else {
+                LoadFullCalendarScript();
+            }
+        }
+
+        function OpenModalBox(header, inner, bottom){
+            var modalbox = $('#modalbox');
+            modalbox.find('.modal-header-name span').html(header);
+            modalbox.find('.devoops-modal-inner').html(inner);
+            modalbox.find('.devoops-modal-bottom').html(bottom);
+            modalbox.fadeIn('fast');
+            $('body').addClass("body-expanded");
+        }
+        //
+        //  Close modalbox
+        //
+        //
+        function CloseModalBox(){
+            var modalbox = $('#modalbox');
+            modalbox.fadeOut('fast', function(){
+                modalbox.find('.modal-header-name span').children().remove();
+                modalbox.find('.devoops-modal-inner').children().remove();
+                modalbox.find('.devoops-modal-bottom').children().remove();
+                $('body').removeClass("body-expanded");
+            });
+        }
+
+        $(document).ready(function () {
+
+                // Example form validator function
+                //
+
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+            $('#external-events div.external-event').each(function() {
+                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                var eventObject = {
+                    title: $.trim($(this).text()) // use the element's text as the event title
+                };
+                // store the Event Object in the DOM element so we can get to it later
+                $(this).data('eventObject', eventObject);
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+            });
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            var meetingTitle = "<?php echo $MeetingTitle; ?>";
+            var meetingDate = "<?php echo $MeetingDate ?>";
+            var meetingContent = "<?php echo $MeetingContent ?>";
+
+
+            var calendar = $('#calendar').fullCalendar({
+                defaultDate: meetingDate,
+                eventLimit: true, // allow "more" link when too many events
+                events: [
+                    {
+                        title: meetingTitle,
+                        start: meetingDate,
+                        description: meetingContent
+                    }
+                ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end, allDay) {
+                    var form = $('<form id="event_form">'+
+                    '<div class="form-group has-success has-feedback">'+
+                    '<label">Event name</label>'+
+                    '<div>'+
+                    '<input type="text" id="newevent_name" class="form-control" placeholder="Name of event">'+
+                    '</div>'+
+                    '<label>Description</label>'+
+                    '<div>'+
+                    '<textarea rows="3" id="newevent_desc" class="form-control" placeholder="Description"></textarea>'+
+                    '</div>'+
+                    '</div>'+
+                    '</form>');
+                    var buttons = $('<button class="event_cancel btn btn-default btn-label-left" type="cancel" >'+
+                    '<span><i class="fa fa-clock-o txt-danger"></i></span>'+
+                    'Cancel'+
+                    '</button>'+
+                    '<button type="submit" id="event_submit" class="btn btn-primary btn-label-left pull-right">'+
+                    '<span><i class="fa fa-clock-o"></i></span>'+
+                    'Add'+
+                    '</button>');
+                    OpenModalBox('Add event', form, buttons);
+                    $('.event_cancel').on('click', function(){
+                        CloseModalBox();
+                    });
+                    $('#event_submit').on('click', function(){
+
+                       var date3 = new Date(start);
+                        var curr_date = date3.getDate();
+                        var curr_month = date3.getMonth() + 1; //Months are zero based
+                        var curr_year = date3.getFullYear();
+                        alert(curr_year + "-" + curr_month + "-" + curr_date);
+
+                        var date2 = curr_year + "-" + curr_month + "-" + curr_date;
+
+                        //noinspection JSJQueryEfficiency
+                        var newaddDEsc = $('#newevent_desc').val();
+
+                       var new_event_name = $('#newevent_name').val();
+                        if (new_event_name != ''){
+                            calendar.fullCalendar('renderEvent',
+                                    {
+                                        title: new_event_name,
+                                        description:  $('#newevent_desc').val(),
+                                        start: start,
+                                        end: end,
+                                        allDay: allDay
+                                    },
+                                    true // make the event "stick"
+                            );
+                        }
+                        $.ajax({
+                            url: "http://localhost/I'mDoneWithSE/S.E-Final-/resources/views/add.blade.php",
+                            type: "POST",
+                            data: {fname: 'ayesha sheriff' , cname: 'shamu', title: new_event_name , desc: newaddDEsc , date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
+                            success: function(data){
+                                data = JSON.parse(data);
+
+                                alert( 'data["meeting_title"];');
+                                //update some fields with the updated data
+                                //you can access the data like 'data["driver"]'
+                            }
+                        });
+
+                        $('#reload').load(document.URL +  ' #reload');
+
+                        CloseModalBox();
+                    });
+                    calendar.fullCalendar('unselect');
+                },
+                editable: true,
+                droppable: true, // this allows things to be dropped onto the calendar !!!
+                drop: function(date, allDay) { // this function is called when something is dropped
+                    // retrieve the dropped element's stored Event Object
+                    var originalEventObject = $(this).data('eventObject');
+                    // we need to copy it, so that multiple events don't have a reference to the same object
+                    var copiedEventObject = $.extend({}, originalEventObject);
+                    // assign it the date that was reported
+                    copiedEventObject.start = date;
+
+                    copiedEventObject.allDay = allDay;
+                    // render the event on the calendar
+                    // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                    // is the "remove after drop" checkbox checked?
+                    if ($('#drop-remove').is(':checked')) {
+                        // if so, remove the element from the "Draggable Events" list
+                        $(this).remove();
+                    }
+                },
+                eventRender: function (event, element, icon) {
+                    if (event.description != "") {
+                        element.attr('title', event.description);
+                    }
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    var form = $('<form id="event_form">'+
+                    '<div class="form-group has-success has-feedback">'+
+                    '<label">Event name</label>'+
+                    '<div>'+
+                    '<input type="text" id="newevent_name" value="'+ calEvent.title +'" class="form-control" placeholder="Name of event">'+
+                    '</div>'+
+                    '<label>Description</label>'+
+                    '<div>'+
+                    '<textarea rows="3" id="newevent_desc" class="form-control" placeholder="Description">'+ calEvent.description +'</textarea>'+
+                    '</div>'+
+                    '</div>'+
+                    '</form>');
+                    var buttons = $('<button class="event_cancel btn btn-default btn-label-left" type="cancel" >'+
+                    '<span><i class="fa fa-clock-o txt-danger"></i></span>'+
+                    'Cancel'+
+                    '</button>'+
+                    '<button id="event_delete" type="cancel" class="btn btn-danger btn-label-left">'+
+                    '<span><i class="fa fa-clock-o txt-danger"></i></span>'+
+                    'Delete'+
+                    '</button>'+
+                    '<button type="submit" id="event_change" class="btn btn-primary btn-label-left pull-right">'+
+                    '<span><i class="fa fa-clock-o"></i></span>'+
+                    'Save changes'+
+                    '</button>');
+                    OpenModalBox('Change event', form, buttons);
+                    $('.event_cancel').on('click', function(){
+                        CloseModalBox();
+                    });
+                    $('#event_delete').on('click', function(){
+                        calendar.fullCalendar('removeEvents' , function(ev){
+                            return (ev._id == calEvent._id);
+                        });
+
+                        var date3 = new Date(meetingDate);
+                        var curr_date = date3.getDate();
+                        var curr_month = date3.getMonth() + 1; //Months are zero based
+                        var curr_year = date3.getFullYear();
+
+
+                        var date2 = curr_year + "-" + curr_month + "-" + curr_date;
+                        alert(date2);
+
+                        $.ajax({
+                            url: "http://localhost/I'mDoneWithSE/S.E-Final-/resources/views/delete.blade.php",
+                            type: "POST",
+                            data: {fname: 'ayesha sheriff', cname: 'shamu', date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
+                            success: function(data){
+                                data = JSON.parse(data);
+                                alert( 'data["meeting_title"];');
+
+
+                                //update some fields with the updated data
+                                //you can access the data like 'data["driver"]'
+                            }
+
+
+                        });
+
+                        $('#reload').load(document.URL +  ' #reload');
+
+                        CloseModalBox();
+                    });
+                    $('#event_change').on('click', function(){
+
+                        var date3 = new Date(meetingDate);
+                        var curr_date = date3.getDate();
+                        var curr_month = date3.getMonth() + 1; //Months are zero based
+                        var curr_year = date3.getFullYear();
+
+
+                        var date2 = curr_year + "-" + curr_month + "-" + curr_date;
+                        alert(date2);
+                        var newTitle = calEvent.title = $('#newevent_name').val();
+                        var newDEsc = calEvent.description = $('#newevent_desc').val();
+                        calendar.fullCalendar('updateEvent', calEvent);
+
+                        $.ajax({
+                            url: "http://localhost/I'mDoneWithSE/S.E-Final-/resources/views/update.blade.php",
+                            type: "POST",
+                            data: {name: 'ayesha sheriff', title: newTitle , desc: newDEsc , date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
+                            success: function(data){
+                                data = JSON.parse(data);
+
+                                alert( 'data["meeting_title"];');
+                                //update some fields with the updated data
+                                //you can access the data like 'data["driver"]'
+                            }
+                        });
+
+
+                        $('#reload').load(document.URL +  ' #reload');
+
+                        CloseModalBox();
+
+                    });
+                }
+            });
+
+            $('#new-event-add').on('click', function (event) {
+                event.preventDefault();
+                var event_name = $('#new-event-title').val();
+                var event_description = $('#new-event-desc').val();
+                if (event_name != '') {
+                    var event_template = $('<div class="external-event" data-description="' + event_description + '">' + event_name + '</div>');
+                    $('#events-templates-header').after(event_template);
+                    var eventObject = {
+                        title: event_name,
+                        description: event_description
+                    };
+                    // store the Event Object in the DOM element so we can get to it later
+                    event_template.data('eventObject', eventObject);
+                    event_template.draggable({
+                        zIndex: 999,
+                        revert: true,
+                        revertDuration: 0
+                    });
+                }
+            });
+
+
+
+// Load scripts and draw Calendar
+//
+            function DrawFullCalendar() {
+                LoadCalendarScript(DrawCalendar);
+            }
+
+            var meetingTitle = document.getElementById('displayss').value;
+            //alert(meetingTitle);
+            $('#calendar').fullCalendar({
+                defaultDate: meetingDate,
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: [
+                    {
+                        title:  meetingTitle,
+                        start: meetingDate
+                    }
+                ]
+            });
+
+
+        })
+
+    </script>
+
+
+
+
+
+
+
+
     <!-- Bootstrap 3.3.2 -->
     <link href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
@@ -34,8 +431,30 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+
+    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/jquery-ui.css">
 </head>
 <body class="skin-blue">
+<div id="modalbox">
+    <div class="devoops-modal">
+        <div class="devoops-modal-header">
+            <div class="modal-header-name">
+                <span>Basic table</span>
+            </div>
+            <div class="box-icons">
+                {{--class="close-link"--}}
+                <a  class="event_cancel">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="devoops-modal-inner">
+        </div>
+        <div class="devoops-modal-bottom">
+        </div>
+    </div>
+</div>
 <div class="wrapper">
 
     <header class="main-header">
@@ -83,6 +502,7 @@
             </div>
         </nav>
     </header>
+
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
@@ -151,57 +571,32 @@
 
             <!-- Calendar -->
             <div class="box box-solid bg-blue-gradient">
-                <div class="box-header">
-                    <i class="fa fa-calendar"></i>
-                    <h3 class="box-title">Calendar</h3>
-                    <!-- tools box -->
-                    <div class="pull-right box-tools">
-                        <!-- button with a dropdown -->
-                        <div class="btn-group">
-                            <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                <li><a href="#">Add new event</a></li>
-                                <li><a href="#">Clear events</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">View calendar</a></li>
-                            </ul>
-                        </div>
-                        <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div><!-- /. tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <!--The calendar -->
-                    <div id="calendar" style="width: 100%">
+
+                <div class="row full-calendar">
+                    <div class="col-sm-3">
 
                     </div>
-                </div><!-- /.box-body -->
+                    <div class="col-sm-9">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
 
             </div><!-- /.box -->
             <div class="box1 text-black">
                 <div class="row">
                     <div class="col-sm-6">
                         <!-- Progress bars -->
+                        <div id="reload">
+                        @for ($i = 0; $i < count($clients); $i++)
                         <div class="bs-callout bs-callout-warning" id="callout-navbar-btn-context">
-                            <p class="text-blue"> <b>Meeting with Bob Sinclar</b> </p>
-                            At 3:30pm
-                        </div>
 
-                        <div class="bs-callout bs-callout-warning" id="callout-navbar-btn-context">
-                            <p class="text-blue"> <b>Meeting with Bob Sinclar</b> </p>
-                            At 3:30pm
-                        </div>
-
-                        <div class="bs-callout bs-callout-warning" id="callout-navbar-btn-context">
-                            <p class="text-blue"> <b>Meeting with Bob Sinclar</b> </p>
-                            At 3:30pm
-                        </div>
-
-                        <div class="bs-callout bs-callout-warning" id="callout-navbar-btn-context">
-                            <p class="text-blue"> <b>Meeting with Bob Sinclar</b> </p>
-                            At 3:30pm
-                        </div>
-
+                                <p class="text-blue" id="displayss"> <b>{{ $clients[$i]['meeting_title'] }}</b> </p>
+                                {{--Meeting Date: {{ $clients[$i]['meeting_date'] }}--}}
+                                {{ $clients[$i]['meeting_content'] }} <br>
+                                {{ $clients[$i]['rc_id'] }}
+                            </div>
+                        @endfor
+                    </div>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div>
@@ -274,45 +669,5 @@
     </footer>
 </div><!-- ./wrapper -->
 
-<!-- jQuery 2.1.3 -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/jQuery/jQuery-2.1.3.min.js"></script>
-<!-- jQuery UI 1.11.2 -->
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
-<!-- Bootstrap 3.3.2 JS -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/public/js/bootstrap.min.js" type="text/javascript"></script>
-<!-- Morris.js charts -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/morris/morris.min.js" type="text/javascript"></script>
-<!-- Sparkline -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-<!-- jvectormap -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
-<!-- jQuery Knob Chart -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/knob/jquery.knob.js" type="text/javascript"></script>
-<!-- daterangepicker -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<!-- datepicker -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
-<!-- iCheck -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-<!-- Slimscroll -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<!-- FastClick -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/fastclick/fastclick.min.js"></script>
-<!-- AdminLTE App -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/public/js/app.min.js" type="text/javascript"></script>
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/public/js/dashboard.js" type="text/javascript"></script>
-
-<!-- AdminLTE for demo purposes -->
-<script src="http://localhost/I'mDoneWithSE/S.E-Final-/public/js/demo.js" type="text/javascript"></script>
 </body>
 </html>
