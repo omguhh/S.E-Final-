@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WalletController@buy');
 
 Route::get('home', 'HomeController@index');
 Route::get('browse_market', 'BrowseMarketController@display_data');
@@ -19,6 +19,8 @@ Route::get('browse_market', 'BrowseMarketController@display_data');
 Route::get('/stocks', 'StocksController@index');
 
 Route::get('/FADashboard','FAController@index');
+
+Route::get('/PurchaseHistory','purchasehistorycontroller@index');
 
 Route::get('admin_dashboard', 'AdminController@index');
 Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_clients'));
