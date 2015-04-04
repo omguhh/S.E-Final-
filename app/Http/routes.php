@@ -19,7 +19,10 @@ Route::get('browse_market', 'BrowseMarketController@display_data');
 Route::get('/stocks', 'StocksController@index');
 Route::get('/Calendar','CalendarController@index');
 
-Route::get('/FADashboard','FAController@index');
+Route::get('/FADashboard','FAController@viewCalendar');
+Route::get('/FAClient','FAController@view_clients');
+
+Route::get('refresh' , array('as' => 'refresh', 'uses' => 'FAController@viewCalendar'));
 
 Route::get('admin_dashboard', 'AdminController@index');
 Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_clients'));

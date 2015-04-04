@@ -1434,6 +1434,7 @@ a:focus {
 }
 .box-body .fc {
   margin-top: 5px;
+  width: 134% !important;
 }
 .box-body .full-width-chart {
   margin: -19px;
@@ -3948,7 +3949,11 @@ Gradient Background colors
   background: -moz-linear-gradient(center bottom, #3c8dbc 0%, #67a8ce 100%) !important;
   background: -o-linear-gradient(#67a8ce, #3c8dbc) !important;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#67a8ce', endColorstr='#3c8dbc', GradientType=0) !important;
-  color: #fff;
+  color: #000;
+  height: 50% !important;
+  width: 60%;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 .bg-blue-gradient {
   background: #0073b7 !important;
@@ -3957,7 +3962,11 @@ Gradient Background colors
   background: -moz-linear-gradient(center bottom, #0073b7 0%, #0089db 100%) !important;
   background: -o-linear-gradient(#0089db, #0073b7) !important;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0089db', endColorstr='#0073b7', GradientType=0) !important;
-  color: #fff;
+  color: #000;
+  height: 50% !important;
+  width: 60%;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 .bg-aqua-gradient {
   background: #00c0ef !important;

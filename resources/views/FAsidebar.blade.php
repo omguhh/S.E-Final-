@@ -17,13 +17,13 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li><!--  Dashboard -->
-                <a href="#">
+                <a href="http://localhost/I'mDoneWithSE/S.E-Final-/public/FADashboard">
                     <i class="fa fa-th"></i> <span>Dashboard</span>
                 </a>
             </li>
 
             <li><!--  CLients -->
-                <a href="#">
+                <a href="http://localhost/I'mDoneWithSE/S.E-Final-/public/FAClient" >
                     <i class="fa fa-user"></i>
                     <span>My Clients</span>
                 </a>

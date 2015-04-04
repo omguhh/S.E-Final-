@@ -4,7 +4,6 @@
 <head>
 <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/jquery.min.js"></script>
 <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/jquery-ui.custom.min.js"></script>
-<script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/jquery-ui.min.js"></script>
 <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.js"></script>
 <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/moment.min.js"></script>
 <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.min.js"></script>
