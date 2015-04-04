@@ -113,6 +113,7 @@ return array(
     'App\\test' => $baseDir . '/app/test.php',
     'Barryvdh\\LaravelIdeHelper\\Alias' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Alias.php',
     'Barryvdh\\LaravelIdeHelper\\Console\\GeneratorCommand' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Console/GeneratorCommand.php',
+    'Barryvdh\\LaravelIdeHelper\\Console\\MetaCommand' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Console/MetaCommand.php',
     'Barryvdh\\LaravelIdeHelper\\Console\\ModelsCommand' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Console/ModelsCommand.php',
     'Barryvdh\\LaravelIdeHelper\\Generator' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Generator.php',
     'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider' => $vendorDir . '/barryvdh/laravel-ide-helper/src/IdeHelperServiceProvider.php',
