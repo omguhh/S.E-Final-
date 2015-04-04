@@ -2,6 +2,7 @@
 
 use App\Stocks;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 
 class StocksController extends Controller {
 

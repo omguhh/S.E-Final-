@@ -1,10 +1,11 @@
-@extends('app')
+@extends('ADapp')
+@section('content')
 
-	<div class="col-lg-10 col-lg-offset-1">
+    <div class="container">
+        <div class="col-lg-12" style="width: 100% !important;">
 
-		<h1><i class="fa fa-users"></i> User Administration <a href="/logout" class="btn btn-default pull-right">Logout</a></h1>
-        <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add New User</a>
-		<div class="table-responsive">
+		<h1>Admin Dashboard </h1>
+       		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
 
 				<thead>
@@ -21,6 +22,7 @@
 						<td>{{$admin[$i]['fa_name']}}</td>
                         <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</a></td>
 					</tr>
+
                 @endfor
 				</tbody>
 
@@ -28,3 +30,5 @@
 		</div>
 
 	</div>
+    </div>
+ @stop

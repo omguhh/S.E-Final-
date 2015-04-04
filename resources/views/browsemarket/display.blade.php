@@ -2,22 +2,7 @@
 
 
 @section('content')
-<h1>Browse Market Page</h1>
-
-{{--@for ($i = 0; $i < count($test); $i++)--}}
-
-    {{--{{'Symbol ' . $test[$i]['Symbol']}}--}}
-    {{--<br>--}}
-    {{--{{'Open ' . $test[$i]['Open']}}--}}
-    {{--<br>--}}
-
-{{--@endfor--}}
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-
-<script src="http://code.highcharts.com/stock/highstock.js"></script>
-<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
-
+<h1>Market Insights</h1>
 
 
 <script type="text/javascript">
@@ -62,7 +47,7 @@
             },
 
             title : {
-                text : 'YAHOO Stock Price'
+                text : 'Market Trends'
             },
 
             series : [{
@@ -116,9 +101,9 @@
         <span><p style="font-weight: 500;color:blue">NYSE</p></span>
         <br>
         <p class="main-ticker"> {{ $test[2]['LastTradePriceOnly']}}</p> <span class="ticker-lows">
-                    @if(($test[1]['Change'])<1)   <p style="color:red;">  {{  $test[0]['Change']  }}
+                    @if(($test[1]['Change'])<1)   <p style="color:red;">  {{  $test[0]['Change']  }}  </p>
 
-                @else {{  $test[1]['Change']  }}
+                @else  <p style="color:#1acf43;">{{  $test[1]['Change']  }} </p>
             @endif
         </span>
         <br>
@@ -127,13 +112,14 @@
     </div>
 
     <div class="col-md-3" style="background-color: #303f9f;padding: 10px;">
-            {{--{!! Form::open(['method' => 'POST', 'route' => ['BrowseMarket/search']]) !!}--}}
 
-            <div class="form-group">
-                <div class="input-group">
-                    {{--{!! Form::text(['class' => 'form-control','title' => 'search', 'placeholder' => 'Search Stock Ticker']) !!}--}}
-                </div>
-            {{--{!! Form::close() !!}--}}
+            {{--<div class="form-group">--}}
+                {{--<div class="input-group">--}}
+               {{--</div>--}}
+
+        {!! Form::open(array('route' => 'browsemarket/search')) !!}
+        {!! Form::text('stockname'); !!}
+        {!! Form::close() !!}
 
         <p style="text-align: left;font-size: 18px;color:#fff;">
             <b> Recommended Symbols: </b> <br>

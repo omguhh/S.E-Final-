@@ -11,9 +11,8 @@
 namespace Barryvdh\LaravelIdeHelper;
 
 use Illuminate\Support\ServiceProvider;
-use Barryvdh\LaravelIdeHelper\Console\MetaCommand;
-use Barryvdh\LaravelIdeHelper\Console\ModelsCommand;
 use Barryvdh\LaravelIdeHelper\Console\GeneratorCommand;
+use Barryvdh\LaravelIdeHelper\Console\ModelsCommand;
 
 class IdeHelperServiceProvider extends ServiceProvider
 {
@@ -60,14 +59,8 @@ class IdeHelperServiceProvider extends ServiceProvider
                 return new ModelsCommand();
             }
         );
-        
-        $this->app['command.ide-helper.meta'] = $this->app->share(
-          function ($app) {
-              return new MetaCommand($app['files'], $app['view']);
-          }
-        );
 
-        $this->commands('command.ide-helper.generate', 'command.ide-helper.models', 'command.ide-helper.meta');
+        $this->commands('command.ide-helper.generate', 'command.ide-helper.models');
     }
 
     /**

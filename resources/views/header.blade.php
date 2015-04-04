@@ -17,7 +17,7 @@
 					<a class="page-scroll" href="#about">About</a>
 				</li>
 				<li>
-					<a class="page-scroll " href="market-insights.php">Market Insights</a>
+                    {!! HTML::linkRoute('browsemarket', 'Market Insights', array() ,array('class' => 'page-scroll')) !!}
 				</li>
 				<li>
 					<a class="page-scroll" href="#contact">Find your Advisor</a>

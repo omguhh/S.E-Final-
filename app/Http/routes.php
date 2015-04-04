@@ -11,10 +11,19 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WalletController@buy');
 
 Route::get('home', 'HomeController@index');
-Route::get('browse_market', 'BrowseMarketController@display_data');
+
+
+Route::get('browsemarket', array('as'=>'browsemarket', 'uses'=>'BrowseMarketController@display_data'));
+Route::post('browsemarket/search', array('as'=>'browsemarket/search','uses'=>'BrowseMarketController@search_stock'));
+Route::get('browse_market/buy_stock', 'BrowseMarketController@buy_stock');
+
+
+Route::get('clientport/display', array('as'=>'clientport/display/', 'uses'=>'ClientController@show'));
+Route::get('clientport/display/holdings', array('as'=>'clientport/display/holdings', 'uses'=>'ClientController@display_holdings'));
+Route::get('clientport/display/mydetails', array('as'=>'clientport/display/mydetails', 'uses'=>'ClientController@show_deets'));
 
 Route::get('/stocks', 'StocksController@index');
 Route::get('/Calendar','CalendarController@index');
@@ -24,10 +33,14 @@ Route::get('/FAClient','FAController@view_clients');
 
 Route::get('refresh' , array('as' => 'refresh', 'uses' => 'FAController@viewCalendar'));
 
+Route::get('/PurchaseHistory','purchasehistorycontroller@index');
+
 Route::get('admin_dashboard', 'AdminController@index');
 Route::get('user/{id}', array('as'=>'user', 'uses'=>'AdminController@view_clients'));
-Route::post('BrowseMarket/search', array('as'=>'BrowseMarket/search','uses'=>'BrowseMarketController@display_data'));
+
 Route::delete('user/delete/{id}', array('as'=>'user/delete','uses'=>'AdminController@delete_user'));
+
+Route::post('admin_dashboard/add', array('as'=>'admin_dashboard/add','uses'=>'AdminController@show_insert_form'));
 
 // Route::controllers([
 // 	'auth' => 'Auth\AuthController',
