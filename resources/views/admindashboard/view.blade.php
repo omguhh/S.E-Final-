@@ -1,8 +1,10 @@
-@extends('app')
+@extends('ADapp')
+@section('content')
 
-<div class="col-lg-10 col-lg-offset-1">
+<div class="container">
+    <div class="col-lg-12" style="width: 100% !important;">
 
-    <h1><i class="fa fa-users"></i> User Administration <a href="/logout" class="btn btn-default pull-right">Logout</a></h1>
+    <h1> User Administration</h1>
     {{--<a href={{route("admin_dashboard/addclient")}} class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add New Client</a>--}}
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -26,7 +28,7 @@
                         {!! Form::close() !!}
 
                         {!! Form::open(array('route' => 'admin_dashboard/add')) !!}
-                        {!! Form::submit('Add', ['class' => 'btn btn-success']) !!}
+                      <span> {!! Form::submit('Add', ['class' => 'btn btn-success']) !!} </span>
                         {!! Form::close() !!}
 
                         {{--<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</a></td>--}}
@@ -38,3 +40,5 @@
     </div>
 
 </div>
+</div>
+@stop

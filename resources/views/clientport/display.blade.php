@@ -67,7 +67,7 @@
             </div>
             <ul class="nav nav-pills">
                 <li class="active">
-                    <a href="#">Home</a>
+                    {!! HTML::linkRoute('clientport/display/', 'Home') !!}
                 </li>
                 <li>
                     {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
@@ -76,12 +76,17 @@
                     <a href="#">Stock Watchlist</a>
                 </li>
                 <li>
-                    <a href="#">Personal Details</a>
+                    {!! HTML::linkRoute('clientport/display/mydetails', 'Personal Data') !!}
                 </li>
 
                 <li>
                     {!! HTML::linkRoute('browsemarket', 'Market Insights') !!}
                 </li>
+
+                <li>
+                    <a href="#">Wallet</a>
+                </li>
+
             </ul>
 
             <div id="containerz" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

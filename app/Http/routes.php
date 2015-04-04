@@ -22,9 +22,8 @@ Route::get('browse_market/buy_stock', 'BrowseMarketController@buy_stock');
 
 
 Route::get('clientport/display', array('as'=>'clientport/display/', 'uses'=>'ClientController@show'));
-
 Route::get('clientport/display/holdings', array('as'=>'clientport/display/holdings', 'uses'=>'ClientController@display_holdings'));
-
+Route::get('clientport/display/mydetails', array('as'=>'clientport/display/mydetails', 'uses'=>'ClientController@show_deets'));
 
 Route::get('/stocks', 'StocksController@index');
 Route::get('/Calendar','CalendarController@index');

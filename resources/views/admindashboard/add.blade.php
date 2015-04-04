@@ -1,40 +1,32 @@
-@extends('app')
+@extends('ADapp')
+@section('content')
 
-<form class="form-horizontal" role="form" method="post" action="index.php">
-    <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="name" name="name" placeholder="First & Last Name" value="">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="email" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-10">
-            <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="message" class="col-sm-2 control-label">Message</label>
-        <div class="col-sm-10">
-            <textarea class="form-control" rows="4" name="message"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="human" name="human" placeholder="Your Answer">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-2">
-            <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-2">
-            <! Will be used to display an alert to the user>
-        </div>
-    </div>
-</form>
+    <div class="container">
+        <div class="col-lg-12" style="width: 100% !important;">
+
+            {!! Form::open(array('route' => 'admin_dashboard/add')) !!}
+            <!-- /resources/views/projects/partials/_form.blade.php -->
+            <div class="form-group">
+                {!! Form::label('rc_id', 'ID:') !!}
+                {!! Form::text('rc_id') !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('rc_name', 'Name:') !!}
+                {!! Form::text('rc_name') !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('rc_email', 'Email:') !!}
+                {!! Form::text('rc_email') !!}
+
+            </div>
+
+            <div class="form-group">
+                {!! Form::submit('hola', ['class'=>'btn primary']) !!}
+            </div>
+            {!! Form::close() !!}
 
 
+        </div>
+    </div>
+
+@stop

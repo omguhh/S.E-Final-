@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Purchase_history;
+use App\Registered_Client;
 use Illuminate\Routing\Controller;
 
 class ClientController extends Controller {
@@ -58,6 +59,16 @@ class ClientController extends Controller {
             ->get();
 
         return \View::make('clientport.holdings')->with('clients',$clients);
+    }
+
+    public function show_deets(){
+
+        $clients  = Registered_Client   ::all(['rc_name'])->first()
+            ->select('rc_name','rc_email','rc_address','rc_phone','cash_balance','fa_name_fk')
+            ->where('rc_name','=', 'naiyarah hussain')
+            ->get();
+
+        return \View::make('clientport.personaldeets')->with('deets',$clients);
     }
 	/**
 	 * Show the form for editing the specified resource.

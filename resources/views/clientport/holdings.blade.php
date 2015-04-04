@@ -23,11 +23,15 @@
                                     <a href="#">Stock Watchlist</a>
                                 </li>
                                 <li>
-                                    <a href="#">Personal Details</a>
+                                    {!! HTML::linkRoute('clientport/display/mydetails', 'Personal Data') !!}
                                 </li>
 
                                 <li>
                                     {!! HTML::linkRoute('browsemarket', 'Market Insights') !!}
+                                </li>
+
+                                <li>
+                                    <a href="#">Wallet</a>
                                 </li>
                             </ul>
 
