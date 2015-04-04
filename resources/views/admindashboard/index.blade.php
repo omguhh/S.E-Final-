@@ -21,6 +21,7 @@
 						<td>{{$admin[$i]['fa_name']}}</td>
                         <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete</a></td>
 					</tr>
+
                 @endfor
 				</tbody>
 
