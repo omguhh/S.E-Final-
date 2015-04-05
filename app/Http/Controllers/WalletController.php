@@ -52,24 +52,17 @@ class WalletController extends Controller {
         return \View::make('clientport/display');
     }
 
-    public function display_holdings(){
 
-        //     $clients  = Purchase_history::all(['client_name'])->first()
-        //     ->select('client_name','fa_name','stock_name','quantity','time_purchased')
-        //     ->get();
-
-        // return \View::make('clientport.holdings')->with('clients',$clients);
-    }
 
     public function add_balance(){
 
         $moneys  = Registered_Client   ::all(['cash_balance'])->first()
-            ->select('cash_balance')
+//            ->select('cash_balance')
             ->where('rc_name','=', 'shamoel khan')
             ->get();
-
+        
         $inc_moneys = \Request::input('transfer_bal');
-        $sum = $inc_moneys + $moneys;
+        $sum =intval($inc_moneys) + intval($moneys[0]['cash_balance']);
 
 
         $new_bal = Registered_Client::where('rc_name', 'shamoel khan')-> update(['cash_balance'=>$sum]);
@@ -87,6 +80,7 @@ class WalletController extends Controller {
             ->get();
         return \View::make('clientport.wallet')->with('moneys',$moneys);
     }
+
     /**
      * Show the form for editing the specified resource.
      * GET /client/{id}/edit

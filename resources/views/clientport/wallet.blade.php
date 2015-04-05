@@ -37,12 +37,12 @@
 
             </ul>
 
-            <dsiv class="container " >
+            <div class="container " >
 
                 <div id="walletz">
                     <!-- <h2> Wallet </h2> -->
                     <br>
-                    <form action="clientport/display/addbalance" method="POST">
+                    <form action="http://localhost/I'mDoneWithSE/S.E-Final-/public/clientport/display/addbalance" method="POST">
                         <div class="form-group">
                             <label for="">Current balance:</label>
                             <div class="input-group">
@@ -74,6 +74,7 @@
             </div>
 
         </div>
+    </div>
     </div>
 
 @stop
