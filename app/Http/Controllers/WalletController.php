@@ -3,6 +3,7 @@
 use App\Http\Requests\Request;
 use App\Registered_Client;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class WalletController extends Controller {
 
@@ -63,16 +64,15 @@ class WalletController extends Controller {
 
     public function add_balance(){
 
-        $moneys  = Registered_Client   ::all(['cash_balance'])->first()
+        $moneys  = Registered_Client::all(['cash_balance'])->first()
             ->select('cash_balance')
-            ->where('rc_name','=', 'shamoel khan')
+            ->where('rc_name','=', 'naiyarah hussain')
             ->get();
 
         $inc_moneys = \Request::input('transfer_bal');
-        $sum = $inc_moneys + $moneys;
+        $sum = $inc_moneys + $moneys[0]['cash_balance'];
 
-
-        $new_bal = Registered_Client::where('rc_name', 'shamoel khan')-> update(['cash_balance'=>$sum]);
+        $new_bal = Registered_Client::where('rc_name', 'naiyarah hussain')-> update(['cash_balance'=>$sum]);
         return \View::make('clientport.wallet')->with('moneys',$moneys);
 
     }
@@ -83,7 +83,7 @@ class WalletController extends Controller {
 
         $moneys  = Registered_Client   ::all(['cash_balance'])->first()
             ->select('cash_balance')
-            ->where('rc_name','=', 'shamoel khan')
+            ->where('rc_name','=', 'naiyarah hussain')
             ->get();
         return \View::make('clientport.wallet')->with('moneys',$moneys);
     }

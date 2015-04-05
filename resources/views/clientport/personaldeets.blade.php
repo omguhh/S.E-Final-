@@ -17,10 +17,10 @@
                     {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                 </li>
                 <li>
-                    <a href="#">Stock Watchlist</a>
+                    {!! HTML::linkRoute('clientport/display/watchlist', 'Watchlist') !!}
                 </li>
                 <li class="active">
-                    <a href="#">Personal Details</a>
+                    {!! HTML::linkRoute('clientport/display/mydetails', 'Personal Data') !!}
                 </li>
 
                 <li>
@@ -28,7 +28,7 @@
                 </li>
 
                 <li>
-                    <a href="#">Wallet</a>
+                    {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                 </li>
 
             </ul>

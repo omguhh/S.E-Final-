@@ -1,0 +1,501 @@
+/*!
+ * Start Bootstrap - Grayscale Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/*!
+* Custom CSS for the mainpages. ATM (19TH Jan) It's being used for the market insights page.
+*/
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,200);
+@import url(http://fonts.googleapis.com/css?family=Roboto:900,500,700);
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #7c7c7c;
+    background-color: #ffffff;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 35px;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+p {
+    font-family: 'Raleway', sans-serif;
+    margin: 0 0 25px;
+    font-size: 28px;
+    line-height: 1.5;
+}
+
+@media(min-width:767px) {
+    p {
+        font-family: 'Raleway', sans-serif;
+        margin: 0 0 35px;
+        font-size: 28px;
+        line-height: 1.6;
+    }
+}
+
+a {
+    color: #219ab3;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: #e6e6fa;
+
+}
+
+.light {
+    font-weight: 400;
+}
+
+.navbar-custom {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    text-transform: uppercase;
+    font-family: 'Raleway', sans-serif;
+    background: #303f9f;
+}
+
+.navbar-custom .navbar-brand {
+    font-weight: 400;
+}
+
+.navbar-custom .navbar-brand:focus {
+    outline: 0;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle {
+    padding: 4px 6px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle:focus,
+.navbar-custom .navbar-brand .navbar-toggle:active {
+    outline: 0;
+}
+
+.navbar-custom a {
+    color: #fff;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.navbar-custom .nav li.active {
+    outline: none;
+    padding-top: 15px;
+    padding-bottom: 1px;
+    border-bottom: 2px transparent;
+    border-bottom-style: solid
+
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    border-bottom: 2px transparent;
+    border-bottom-style: solid
+
+}
+
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li a:focus
+{
+    outline: 0;
+    border-bottom: solid 2px #ffffff;
+    background-color: transparent;
+    transition-duration: 0.15s;
+}
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 5px 0;
+        border-bottom: 0;
+        letter-spacing: 1px;
+        background: transparent;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+        background-color: #000;
+
+    }
+
+    .navbar-custom.top-nav-collapse {
+        border-bottom: solid 2px #ffffff;
+    }
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+.login  {
+    float:right;
+    background-color: transparent;
+    text-transform: uppercase;
+    font-family:  'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    padding: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.login:hover {
+    background-color: #ffffff;
+    color: #303f9f;
+
+}
+
+
+.navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 1px;
+}
+
+.intro {
+    display: table;
+    width: 100%;
+    height: 100vh;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(
+            rgba(33, 63, 192, 0.60),
+            rgba(33, 63, 192, 0.60)
+    ), url(http://localhost/SE_Repo/S.E-Final-/public/images/bg_img.png) no-repeat bottom center scroll;
+    background-color: #4d65fe;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
+h1 {
+    text-transform: uppercase;
+    font-size: 7.5rem;
+
+}
+h2{color:#000000;font-size: 4rem;}
+
+.intro .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.intro .intro-body .brand-heading {
+    font-size: 40px;
+}
+
+.intro .intro-body .intro-text {
+    font-size: 18px;
+}
+
+@media(min-width:767px) {
+    .intro {
+        height: 100%;
+        padding: 0;
+    }
+
+    .intro .intro-body .brand-heading {
+        font-size: 70px;
+    }
+
+    .intro .intro-body .intro-text {
+        font-size: 25px;
+    }
+}
+
+
+.content-section {
+    padding-top: 50px;
+}
+
+
+@media(min-width:767px) {
+    .content-section {
+        padding-top: 50px;
+    }
+
+    .download-section {
+        padding: 100px 0;
+    }
+
+    #map {
+        height: 400px;
+        margin-top: 250px;
+    }
+}
+
+ul.banner-social-buttons {
+    margin-top: 0;
+}
+
+@media(max-width:1199px) {
+    ul.banner-social-buttons {
+        margin-top: 15px;
+    }
+}
+
+@media(max-width:767px) {
+    ul.banner-social-buttons li {
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    ul.banner-social-buttons li:last-child {
+        margin-bottom: 0;
+    }
+}
+
+footer {
+    background-color: #263238;
+    padding: 20px 0;
+}
+
+footer p {
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin:15px 115px 0;
+    font-weight: 400;
+    text-align: left;
+    font-size: 85%;
+}
+
+::-moz-selection {
+    text-shadow: none;
+    background: #4d65fe;
+    background: rgba(255,255,255,.2);
+}
+
+::selection {
+    text-shadow: none;
+    background: #4d65fe;
+    background: rgba(255,255,255,.2);
+}
+
+img::selection {
+    background: 0 0;
+}
+
+img::-moz-selection {
+    background: 0 0;
+}
+
+body {
+    webkit-tap-highlight-color: rgba(77, 101, 254, 0.20);
+}
+
+#efficient_box  {
+     width: 33%;
+     background-color: #303f9f;
+    padding: 35px;
+ }
+
+#automated_box  {
+    width: 33%;
+    background-color: #283593;
+    padding: 35px;
+}
+
+
+#down_to_earth_box  {
+    width: 33%;
+    background-color: #1a237e;
+    padding: 35px;
+}
+
+
+#efficient_box h3,
+#automated_box h3,
+#down_to_earth_box h3{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    font-size: 38px;
+    line-height: 1.777;
+    color: #ffffff;
+}
+#efficient_box p,
+#automated_box p,
+#down_to_earth_box p {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 1.33333;
+    color: #ffffff;
+    margin-top: 1.555%;
+}
+
+.testimonial_header {
+
+    top: 9.624%;
+    width: 100%;
+    color: #A4A7B3;
+    font-size: 28px;
+     text-align: center;
+    left: 0;
+    line-height: 1;
+    z-index: 2;
+}
+
+.testimonial_texties {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    margin-top: 0px;
+    line-height: 42px;
+    color: #343434;
+    text-align: left;
+}
+
+.client-img {
+
+    width: 150px;
+    height: 150px;
+    font-size: 0;
+    float: left;
+    border-collapse: collapse;
+    border-radius: 100px;
+    overflow: hidden;
+    border-spacing: 0;
+    line-height: 0;
+    margin-left: 41.91%;
+    margin-right: 6.546%;
+    position: absolute;
+    margin-top: 3.4545%;
+    top: 63%;
+}
+
+/*Login Box CSS*/
+
+/* Popup Styles*/
+.popupHeader  {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform:  uppercase;
+}
+
+.popupHeader  {
+    background: #F4F4F2;
+    position: relative;
+    padding: 10px 20px;
+    border-bottom: 1px solid #DDD;
+}
+
+.popupHeader .modal_close  {
+    position:  absolute;
+    right:  0;
+    top: 0;
+    padding: 10px 15px;
+    background: #E4E4E2;
+    cursor:  pointer;
+    color: #aaa;
+    font-size: 16px;
+}
+
+.popupBody  {
+    padding: 20px;
+}
+
+/* Overlay when Modal is open */
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+/* Modal box or Popup box */
+.popupContainer{
+    position:absolute;
+    width:330px;
+    height: auto;
+    left:45%;
+    top:80px;
+    background: #FFF;
+}
+
+/* User Login Form */
+.user_login  {
+    display:  none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+}
+
+.user_login label  {
+    font-family: 'Raleway', sans-serif;
+    display:  block;
+     margin-bottom: 5px;
+}
+
+.user_login input[type="text"],  .user_login input[type="email"],  .user_login input[type="password"]  {
+    font-family: 'Raleway', sans-serif;
+    display:  block;
+    width: 90%;
+    padding:  10px;
+    border: 1px solid #DDD;
+    color: #666;
+}
+
+.forgot_password  {
+    font-family: 'Raleway', sans-serif;
+    display: block;
+    margin:  20px 0 10px;
+    clear:  both;
+    overflow:  hidden;
+    text-decoration:  none;
+    color: #212121;
+}
+
+
+.btn_red  {
+    background: #3948da;
+    color:  #FFF;
+}
+
+.btn_red:hover  {
+    background:  #303f9f;
+    color:  #FFF;
+}

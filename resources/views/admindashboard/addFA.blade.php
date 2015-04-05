@@ -6,64 +6,86 @@
         <div class="row clearfix">
             <div class="col-md-12 column">
 
-                {!! Form::open(array('route' => 'admin_dashboard/insertFA')) !!}
+                <div class="page-header">
+                    <h1>
+                        ADD NEW FINANCIAL ADVISOR
+                    </h1>
+                </div>
+                {!! Form::open(array('route' => 'admin_dashboard/insertFA','class' => 'form-horizontal')) !!}
                 <!-- /resources/views/projects/partials/_form.blade.php -->
                 <div class="form-group">
-                    {!! Form::label('fa_id', 'ID:') !!}
-                    {!! Form::text('fa_id') !!}
+                    {!! Form::label('fa_id', 'ID:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('fa_id',null,['class' => 'form-control input-md']) !!}
+                            </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('fa_name', 'Name:') !!}
-                    {!! Form::text('fa_name') !!}
+                    {!! Form::label('fa_name', 'Name:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('fa_name',null,['class' => 'form-control input-md']) !!}
+                        </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('fa_email', 'Email:') !!}
-                    {!! Form::text('fa_email') !!}
-
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('fa_address', 'Address:') !!}
-                    {!! Form::text('fa_address') !!}
-
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('fa_phone', 'Phone:') !!}
-                    {!! Form::text('fa_phone') !!}
-
+                    {!! Form::label('fa_email', 'Email:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('fa_email',null,['class' => 'form-control input-md']) !!}
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('fa_rating', 'Rating:') !!}
-                    {!! Form::text('fa_rating') !!}
-
-                </div>
-                <div class="form-group">
-                    {!! Form::label('years_experience', 'Experience:') !!}
-                    {!! Form::text('years_experience') !!}
+                    {!! Form::label('fa_address', 'Address:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('fa_address',null,['class' => 'form-control input-md']) !!}
+                        </div>
 
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('certificate', 'Certificate:') !!}
-                    {!! Form::text('certificate') !!}
+                    {!! Form::label('fa_phone', 'Phone:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('fa_phone',null,['class' => 'form-control input-md']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('fa_rating', 'Rating:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('fa_rating',null,['class' => 'form-control input-md']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('years_experience', 'Experience:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('years_experience',null,['class' => 'form-control input-md']) !!}
+                        </div>
 
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('user_id', 'ID:') !!}
-                    {!! Form::text('user_id') !!}
+                    {!! Form::label('certificate', 'Certificate:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('certificate',null,['class' => 'form-control input-md']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('user_id', 'ID:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('user_id',null,['class' => 'form-control input-md']) !!}
+                            </div>
 
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('fa_password', 'Password:') !!}
-                    {!! Form::text('fa_password') !!}
-
+                    {!! Form::label('fa_password', 'Password:',['class' => 'col-md-1 control-label']) !!}
+                    <div class="col-md-4">
+                    {!! Form::text('fa_password',null,['class' => 'form-control input-md']) !!}
+                    </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::submit('hola', ['class'=>'btn primary']) !!}
+                    <div class="col-md-4">
+                        {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
+                    </div>
                 </div>
                 {!! Form::close() !!}
 

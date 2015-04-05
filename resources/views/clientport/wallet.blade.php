@@ -21,18 +21,18 @@
                     {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                 </li>
                 <li>
-                    <a href="#">Stock Watchlist</a>
+                    {!! HTML::linkRoute('clientport/display/watchlist', 'Watchlist') !!}
                 </li>
                 <li>
-                    <a href="#">Personal Details</a>
+                    {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                 </li>
 
                 <li>
-                    {!! HTML::linkRoute('browsemarket', 'Market Insights') !!}
+                    {!! HTML::linkRoute('clientport/display/mydetails', 'Personal Data') !!}
                 </li>
 
                 <li class="active">
-                    <a href="#">Wallet</a>
+                    {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                 </li>
 
             </ul>
@@ -42,7 +42,8 @@
                 <div id="walletz">
                     <!-- <h2> Wallet </h2> -->
                     <br>
-                    <form action="clientport/display/addbalance" method="POST">
+
+                    {!! Form::open(array('route' => 'clientport/display/addbalance')) !!}
                         <div class="form-group">
                             <label for="">Current balance:</label>
                             <div class="input-group">
@@ -59,16 +60,17 @@
                                 <label for="">Add more balance:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="decimal" class="form-control" id="transfer_bal" placeholder="enter amount...">
+                                    {!! Form::text('transfer_bal',null,['class' => 'form-control','placeholder'=>'enter amount..']) !!}
+                                    {{--//<input type="decimal" class="form-control" id="transfer_bal" placeholder="enter amount...">--}}
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-piggy-bank"></span> Transfer cash
-                            </button>
+                            {!! Form::submit('Transfer cash', ['class'=>'btn btn-primary']) !!}
+                            {!! Form::close() !!}
+
                         </div>
                         <br>
-                    </form>
+
                 </div>
 
             </div>

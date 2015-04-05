@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase_history extends \Eloquent {
 
     protected $table = 'purchase_history';
-
+    public $timestamps = false;
 	protected $fillable = [];
 
     public function Registered_Client()

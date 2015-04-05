@@ -20,7 +20,7 @@
                                     {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                                 </li>
                                 <li>
-                                    <a href="#">Stock Watchlist</a>
+                                    {!! HTML::linkRoute('clientport/display/watchlist', 'Watchlist') !!}
                                 </li>
                                 <li>
                                     {!! HTML::linkRoute('clientport/display/mydetails', 'Personal Data') !!}
@@ -31,7 +31,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="#">Wallet</a>
+                                    {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                                 </li>
                             </ul>
 
@@ -51,6 +51,9 @@
                                     <th>
                                         Quantity
                                     </th>
+                                    <th>
+                                        Action
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -61,6 +64,9 @@
                                     <td>{{$clients[$i]['time_purchased']}}</td>
                                     <td>{{$clients[$i]['quantity']}}</td>
 
+                                     {!! Form::open(['method' => 'POST', 'route' => ['browsemarket/sell_stocks',$clients[$i]['stock_name']]]) !!}
+                                     <td> {!! Form::submit('Sell', ['class'=>'btn btn-danger btn-lg']) !!} </td>
+                                     {!! Form::close() !!}
                                 </tr>
                                 @endfor
 

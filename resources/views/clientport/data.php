@@ -7,14 +7,14 @@ if (!$con) {
 
 mysql_select_db("pi_test", $con);
 
-$sth = mysql_query("SELECT user_score FROM user_score WHERE MONTH(time_of_score)  = 4");
+$sth = mysql_query("SELECT user_score FROM user_score WHERE MONTH(time_of_score)  = 3 AND client_name='naiyarah hussain' ");
 $rows = array();
 $rows['name'] = 'Networth';
 while($r = mysql_fetch_array($sth)) {
     $rows['data'][] = $r['user_score'];
 }
 
-$sth = mysql_query("SELECT DAY(time_of_score) AS DayScore FROM user_score WHERE MONTH(time_of_score)  = 4");
+$sth = mysql_query("SELECT DAY(time_of_score) AS DayScore FROM user_score WHERE MONTH(time_of_score)  = 3 AND client_name='naiyarah hussain' ");
 $rows1 = array();
 $rows1['name'] = 'Day';
 while($rr = mysql_fetch_assoc($sth)) {

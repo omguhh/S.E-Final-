@@ -11,20 +11,28 @@
 |
 */
 
-Route::get('/', 'WalletController@buy');
+
 
 Route::get('home', 'HomeController@index');
 
 
 Route::get('browsemarket', array('as'=>'browsemarket', 'uses'=>'BrowseMarketController@display_data'));
 Route::post('browsemarket/search', array('as'=>'browsemarket/search','uses'=>'BrowseMarketController@search_stock'));
-Route::get('browse_market/buy_stock', 'BrowseMarketController@buy_stock');
+Route::get('browsemarket/buy_stocks/price:{price}/name:{name}', array('as'=>'browsemarket/buy_stocks','uses'=>'BrowseMarketController@show_stock_buy'));
+Route::post('browsemarket/buy_stocks_amount', array('as'=>'browsemarket/buy_stocks_amount','uses'=>'BrowseMarketController@stock_buy'));
+
+Route::post('browsemarket/sell_stocks/name:{name}', array('as'=>'browsemarket/sell_stocks','uses'=>'BrowseMarketController@show_stock_sell'));
+Route::post('browsemarket/sell_stocks_amount', array('as'=>'browsemarket/sell_stocks_amount','uses'=>'BrowseMarketController@stock_sell'));
+
+//Route::post('browse_market/buy_stocks_amount', 'BrowseMarketController@buy_stock');
 
 
 Route::get('clientport/display', array('as'=>'clientport/display/', 'uses'=>'ClientController@show'));
 Route::get('clientport/display/holdings', array('as'=>'clientport/display/holdings', 'uses'=>'ClientController@display_holdings'));
 Route::get('clientport/display/mydetails', array('as'=>'clientport/display/mydetails', 'uses'=>'ClientController@show_deets'));
 Route::get('clientport/display/wallet', array('as'=>'clientport/display/wallet', 'uses'=>'WalletController@display_balance'));
+Route::get('clientport/display/watchlist', array('as'=>'clientport/display/watchlist', 'uses'=>'ClientController@get_bookmarked'));
+
 Route::post('clientport/display/addbalance', array('as'=>'clientport/display/addbalance', 'uses'=>'WalletController@add_balance'));
 
 Route::get('/stocks', 'StocksController@index');

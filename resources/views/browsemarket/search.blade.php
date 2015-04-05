@@ -71,7 +71,9 @@
             <div class="col-md-12 column">
                 <div class="page-header">
                     <h1>
-                        {{ $test[$i]['Name']}}  {{ $test[$i]['Symbol']}} <small> - {{ $test[$i]['StockExchange']}} As of {{ $test[$i]['LastTradeWithTime']}}</small> <span><button class="btn btn-success" style="float:right" value="Buy">Buy</button></span>
+                        {{ $test[$i]['Name']}}  {{ $test[$i]['Symbol']}} <small> - {{ $test[$i]['StockExchange']}} As of {{ $test[$i]['LastTradeWithTime']}}</small> <span>
+                             {!! HTML::linkRoute('browsemarket/buy_stocks', 'Buy' ,array('price'=>$test[$i]['Ask'],'name'=>$test[$i]['Symbol'] ) ) !!} </span>
+                            {{--<button class="btn btn-success" style="float:right" value="Buy">Buy</button>--}}
                     </h1>
                 </div>
                 <h3>
