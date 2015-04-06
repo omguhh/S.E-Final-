@@ -28,7 +28,10 @@ Route::get('clientport/display/wallet', array('as'=>'clientport/display/wallet',
 Route::post('clientport/display/addbalance', array('as'=>'clientport/display/addbalance', 'uses'=>'WalletController@add_balance'));
 
 Route::get('/stocks', 'StocksController@index');
-Route::get('/Calendar','CalendarController@index');
+
+Route::get('/Login', 'LoginController@index');
+
+Route::get('/Calendar','CalendarController@viewCalendar');
 
 Route::get('/FADashboard','FAController@viewCalendar');
 Route::get('/FAClient','FAController@view_clients');

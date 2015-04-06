@@ -1,57 +1,25 @@
 
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pi";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM calender_meeting where fa_name='ayesha sheriff'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $RC_ID=$row["rc_id"];
-        $MeetingTitle=$row["meeting_title"];
-        $MeetingDate=$row["meeting_date"];
-        $MeetingContent=$row["meeting_content"];
-        //echo "rcID:" . $row["rc_id"]. " - MeetingTitle: " . $row["meeting_title"]. "- MeetingDate " . $row["meeting_date"]. "<br>";
-    }
-
-} else {
-    echo "0 results";
-}
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title> Financial Advisor| Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/jquery.min.js"></script>
-    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/lib/jquery-ui.custom.min.js"></script>
-    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.js"></script>
-    <script src="http://localhost/I'mDoneWithSE/S.E-Final-/fullcalendar/lib/moment.js"></script>
-    <script src="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.min.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/jquery.min.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/jquery-ui.custom.min.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/fullcalendar.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/moment.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/fullcalendar.min.js"></script>
 
 
     <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Righteous'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/style_v1.css">{{-- //for the pop up--}}
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/bootstrap.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/app.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/jquery-ui.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/custom_css.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/style_v1.css">{{-- //for the pop up--}}
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/bootstrap.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/app.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/jquery-ui.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/custom_css.css">
 
     <script>
 
@@ -69,7 +37,7 @@ $conn->close();
         function LoadCalendarScript(callback){
             function LoadFullCalendarScript(){
                 if(!$.fn.fullCalendar){
-                    $.getScript("http://localhost/I'mDoneWithSE/S.E-Final-/fullcalendar/lib/moment.js", callback);
+                    $.getScript("http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/moment.js", callback);
                 }
                 else {
                     if (callback && typeof(callback) === "function") {
@@ -78,7 +46,7 @@ $conn->close();
                 }
             }
             if (!$.fn.moment){
-                $.getScript("http://localhost/I'mDoneWithSE/S.E-Final-/fullcalendar/lib/moment.js", LoadFullCalendarScript);
+                $.getScript("http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/moment.js", LoadFullCalendarScript);
             }
             else {
                 LoadFullCalendarScript();
@@ -130,21 +98,22 @@ $conn->close();
             });
             /* initialize the calendar
              -----------------------------------------------------------------*/
-            var meetingTitle = "<?php echo $MeetingTitle; ?>";
-            var meetingDate = "<?php echo $MeetingDate ?>";
-            var meetingContent = "<?php echo $MeetingContent ?>";
+
 
 
             var calendar = $('#calendar').fullCalendar({
                 defaultDate: "2015-04-04",
                 eventLimit: true, // allow "more" link when too many events
-                events: [
+
+                events:[
+                    @for ($i = 0; $i < count($clients); $i++)
                     {
-                        title: meetingTitle,
-                        start: meetingDate,
-                        description: meetingContent
-                    }
-                ],
+                        title: "{{ $clients[$i]['meeting_title'] }}",
+                        start: "{{ $clients[$i]['meeting_date'] }}",
+                        description: "{{ $clients[$i]['meeting_content'] }}"
+                    },
+                    @endfor
+                    ],
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -178,15 +147,13 @@ $conn->close();
                         CloseModalBox();
                     });
                     $('#event_submit').on('click', function(){
-
-                       var date3 = new Date(start);
+                        var date3 = new Date(start);
                         var curr_date = date3.getDate();
                         var curr_month = date3.getMonth() + 1; //Months are zero based
                         var curr_year = date3.getFullYear();
-                        alert(curr_year + "-" + curr_month + "-" + curr_date);
 
                         var date2 = curr_year + "-" + curr_month + "-" + curr_date;
-
+                        alert("Event will be added for"+ date2);
                         //noinspection JSJQueryEfficiency
                         var newaddDEsc = $('#newevent_desc').val();
 
@@ -204,13 +171,12 @@ $conn->close();
                             );
                         }
                         $.ajax({
-                            url: "http://localhost/I'mDoneWithSE/S.E-Final-/resources/views/add.blade.php",
+                            url: "http://localhost/SE_Repo/S.E-Final-/resources/views/add.blade.php",
                             type: "POST",
                             data: {fname: 'ayesha sheriff' , cname: 'shamu', title: new_event_name , desc: newaddDEsc , date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
                             success: function(data){
                                 data = JSON.parse(data);
 
-                                alert( 'data["meeting_title"];');
                                 //update some fields with the updated data
                                 //you can access the data like 'data["driver"]'
                             }
@@ -281,22 +247,23 @@ $conn->close();
                             return (ev._id == calEvent._id);
                         });
 
-                        var date3 = new Date(meetingDate);
+                        @for ($i = 0; $i < count($clients); $i++)
+
+                        var align = "{{ $clients[$i]['meeting_date'] }}";
+                        @endfor
+                        var date3 = new Date(align);
                         var curr_date = date3.getDate();
                         var curr_month = date3.getMonth() + 1; //Months are zero based
                         var curr_year = date3.getFullYear();
-
-
                         var date2 = curr_year + "-" + curr_month + "-" + curr_date;
-                        alert(date2);
+                        alert("Event will be deleted for "+date2);
 
                         $.ajax({
-                            url: "http://localhost/I'mDoneWithSE/S.E-Final-/resources/views/delete.blade.php",
+                            url: "http://localhost/SE_Repo/S.E-Final-/resources/views/delete.blade.php",
                             type: "POST",
                             data: {fname: 'ayesha sheriff', cname: 'shamu', date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
                             success: function(data){
                                 data = JSON.parse(data);
-                                alert( 'data["meeting_title"];');
 
 
                                 //update some fields with the updated data
@@ -312,26 +279,28 @@ $conn->close();
                     });
                     $('#event_change').on('click', function(){
 
-                        var date3 = new Date(meetingDate);
+                        @for ($i = 0; $i < count($clients); $i++)
+
+                        var align = "{{ $clients[$i]['meeting_date'] }}";
+                        @endfor
+                        var date3 = new Date(align);
                         var curr_date = date3.getDate();
                         var curr_month = date3.getMonth() + 1; //Months are zero based
                         var curr_year = date3.getFullYear();
-
-
                         var date2 = curr_year + "-" + curr_month + "-" + curr_date;
-                        alert(date2);
+                        alert("Event will be added on "+date2);
+
                         var newTitle = calEvent.title = $('#newevent_name').val();
                         var newDEsc = calEvent.description = $('#newevent_desc').val();
                         calendar.fullCalendar('updateEvent', calEvent);
 
                         $.ajax({
-                            url: "http://localhost/I'mDoneWithSE/S.E-Final-/resources/views/update.blade.php",
+                            url: "http://localhost/SE_Repo/S.E-Final-/resources/views/update.blade.php",
                             type: "POST",
                             data: {name: 'ayesha sheriff', title: newTitle , desc: newDEsc , date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
                             success: function(data){
                                 data = JSON.parse(data);
 
-                                alert( 'data["meeting_title"];');
                                 //update some fields with the updated data
                                 //you can access the data like 'data["driver"]'
                             }
@@ -402,28 +371,28 @@ $conn->close();
 
 
     <!-- Bootstrap 3.3.2 -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons 2.0.0 -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/public/css/AdminLTE.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/public/css/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
     <!-- Morris chart -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
     <!-- jvectormap -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
     <!-- Date Picker -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap wysihtml5 - text editor -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -433,7 +402,7 @@ $conn->close();
     <![endif]-->
 
 
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/jquery-ui.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/jquery-ui.css">
 </head>
 <body class="skin-blue">
 <div id="modalbox">
@@ -471,13 +440,13 @@ $conn->close();
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                            <img src="http://localhost/SE_Repo/S.E-Final-/resources/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
                             <span class="hidden-xs">Kevin Spacey</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                                <img src="http://localhost/SE_Repo/S.E-Final-/resources/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                                 <p>
                                     Kevin Spacey - Financial Advisor
                                     <small>Member since Nov. 2012</small>
@@ -510,7 +479,7 @@ $conn->close();
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="http://localhost/I'mDoneWithSE/S.E-Final-/resources/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                    <img src="http://localhost/SE_Repo/S.E-Final-/resources/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                 </div>
                 <div class="pull-left info">
                     <p>Kevin Spacey</p>
@@ -547,7 +516,7 @@ $conn->close();
                 </li>
 
                 <li><!--  Messages -->
-                    <a href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/mailbox.html">
+                    <a href="http://localhost/SE_Repo/S.E-Final-/resources/assets/mailbox.html">
                         <i class="fa fa-envelope"></i> <span>Messages</span>
                     </a>
                 </li>

@@ -1,41 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title> Financial Advisor| Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/jquery.min.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/jquery-ui.custom.min.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/fullcalendar.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/moment.js"></script>
+    <script src="http://localhost/SE_Repo/S.E-Final-/fullcalendar/fullcalendar.min.js"></script>
 
-    <!-- Bootstrap 3.3.2 -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- FontAwesome 4.3.0 -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Ionicons 2.0.0 -->
-    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/_all-skins.min.css" rel="stylesheet" type="text/css" />
-    <!-- iCheck -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
-    <!-- Morris chart -->
-    <link href="http://localhost/I'mDoneWithSE/S.E-Final-/resources/assets/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
-    <script src="/S.E-Final-/fullcalendar/lib/jquery.min.js"></script>
-    <script src="/S.E-Final-/fullcalendar/lib/jquery-ui.custom.min.js"></script>
-    <script src="/S.E-Final-/fullcalendar/lib/jquery-ui.min.js"></script>
-    <script src="/S.E-Final-/fullcalendar/fullcalendar.js"></script>
-    <script src="/S.E-Final-/fullcalendar/lib/moment.min.js"></script>
-    <script src="/S.E-Final-/fullcalendar/fullcalendar.min.js"></script>
+
     <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Righteous'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='http://localhost/S.E-Final-/S.E-Final-/fullcalendar/fullcalendar.css'>
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/style_v1.css">
-    <link rel="stylesheet" href="http://localhost/I'mDoneWithSE/S.E-Final-/public/css/bootstrap.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/app.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/jquery-ui.css">
-    <link rel="stylesheet" href="http://localhost/S.E-Final-/S.E-Final-/public/css/custom_css.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/style_v1.css">{{-- //for the pop up--}}
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/bootstrap.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/app.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/jquery-ui.css">
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/css/custom_css.css">
 
     <script>
+
+
 
         /*-------------------------------------------
          Dynamically load plugin scripts
@@ -45,10 +32,11 @@
         // homepage: http://arshaw.com/fullcalendar
         // require moment.js
         //
+
         function LoadCalendarScript(callback){
             function LoadFullCalendarScript(){
                 if(!$.fn.fullCalendar){
-                    $.getScript('/fullcalendar/lib/fullcalendar.js', callback);
+                    $.getScript("http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/moment.js", callback);
                 }
                 else {
                     if (callback && typeof(callback) === "function") {
@@ -57,7 +45,7 @@
                 }
             }
             if (!$.fn.moment){
-                $.getScript('/fullcalendar/lib/moment.min.js', LoadFullCalendarScript);
+                $.getScript("http://localhost/SE_Repo/S.E-Final-/fullcalendar/lib/moment.js", LoadFullCalendarScript);
             }
             else {
                 LoadFullCalendarScript();
@@ -88,10 +76,8 @@
 
         $(document).ready(function () {
 
-
-//
-// Example form validator function
-//
+            // Example form validator function
+            //
 
             /* initialize the external events
              -----------------------------------------------------------------*/
@@ -111,7 +97,22 @@
             });
             /* initialize the calendar
              -----------------------------------------------------------------*/
+
+
+
             var calendar = $('#calendar').fullCalendar({
+                defaultDate: "2015-04-04",
+                eventLimit: true, // allow "more" link when too many events
+
+                events:[
+                    @for ($i = 0; $i < count($clients); $i++)
+                    {
+                        title: "{{ $clients[$i]['meeting_title'] }}",
+                        start: "{{ $clients[$i]['meeting_date'] }}",
+                        description: "{{ $clients[$i]['meeting_content'] }}"
+                    },
+                    @endfor
+                    ],
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -145,12 +146,32 @@
                         CloseModalBox();
                     });
                     $('#event_submit').on('click', function(){
+
+
+
+                        @for ($i = 0; $i < count($clients); $i++)
+
+                        var align = "{{ $clients[$i]['meeting_date'] }}";
+                                @endfor
+                                var date3 = new Date(align);
+                        var curr_date = date3.getDate();
+                        var curr_month = date3.getMonth() + 1; //Months are zero based
+                        var curr_year = date3.getFullYear();
+                        var date2 = curr_year + "-" + curr_month + "-" + curr_date;
+                        alert(date2);
+                        var newTitle = calEvent.title = $('#newevent_name').val();
+                        var newDEsc = calEvent.description = $('#newevent_desc').val();
+                        calendar.fullCalendar('updateEvent', calEvent);
+
+                        //noinspection JSJQueryEfficiency
+                        var newaddDEsc = $('#newevent_desc').val();
+
                         var new_event_name = $('#newevent_name').val();
                         if (new_event_name != ''){
                             calendar.fullCalendar('renderEvent',
                                     {
                                         title: new_event_name,
-                                        description: $('#newevent_desc').val(),
+                                        description:  $('#newevent_desc').val(),
                                         start: start,
                                         end: end,
                                         allDay: allDay
@@ -158,6 +179,21 @@
                                     true // make the event "stick"
                             );
                         }
+                        $.ajax({
+                            url: "http://localhost/SE_Repo/S.E-Final-/resources/views/add.blade.php",
+                            type: "POST",
+                            data: {fname: 'ayesha sheriff' , cname: 'shamu', title: new_event_name , desc: newaddDEsc , date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
+                            success: function(data){
+                                data = JSON.parse(data);
+
+                                alert( 'data["meeting_title"];');
+                                //update some fields with the updated data
+                                //you can access the data like 'data["driver"]'
+                            }
+                        });
+
+                        $('#reload').load(document.URL +  ' #reload');
+
                         CloseModalBox();
                     });
                     calendar.fullCalendar('unselect');
@@ -171,6 +207,7 @@
                     var copiedEventObject = $.extend({}, originalEventObject);
                     // assign it the date that was reported
                     copiedEventObject.start = date;
+
                     copiedEventObject.allDay = allDay;
                     // render the event on the calendar
                     // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
@@ -219,16 +256,74 @@
                         calendar.fullCalendar('removeEvents' , function(ev){
                             return (ev._id == calEvent._id);
                         });
+
+                        @for ($i = 0; $i < count($clients); $i++)
+
+                        var align = "{{ $clients[$i]['meeting_date'] }}";
+                                @endfor
+                                var date3 = new Date(align);
+                        var curr_date = date3.getDate();
+                        var curr_month = date3.getMonth() + 1; //Months are zero based
+                        var curr_year = date3.getFullYear();
+                        var date2 = curr_year + "-" + curr_month + "-" + curr_date;
+                        alert(date2);
+
+                        $.ajax({
+                            url: "http://localhost/SE_Repo/S.E-Final-/resources/views/delete.blade.php",
+                            type: "POST",
+                            data: {fname: 'ayesha sheriff', cname: 'shamu', date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
+                            success: function(data){
+                                data = JSON.parse(data);
+                                alert( 'data["meeting_title"];');
+
+
+                                //update some fields with the updated data
+                                //you can access the data like 'data["driver"]'
+                            }
+
+
+                        });
+
+                        $('#reload').load(document.URL +  ' #reload');
+
                         CloseModalBox();
                     });
                     $('#event_change').on('click', function(){
-                        calEvent.title = $('#newevent_name').val();
-                        calEvent.description = $('#newevent_desc').val();
+
+                        var date3 = new Date(meetingDate);
+                        var curr_date = date3.getDate();
+                        var curr_month = date3.getMonth() + 1; //Months are zero based
+                        var curr_year = date3.getFullYear();
+
+
+                        var date2 = curr_year + "-" + curr_month + "-" + curr_date;
+                        alert(date2);
+                        var newTitle = calEvent.title = $('#newevent_name').val();
+                        var newDEsc = calEvent.description = $('#newevent_desc').val();
                         calendar.fullCalendar('updateEvent', calEvent);
-                        CloseModalBox()
+
+                        $.ajax({
+                            url: "http://localhost/SE_Repo/S.E-Final-/resources/views/update.blade.php",
+                            type: "POST",
+                            data: {name: 'ayesha sheriff', title: newTitle , desc: newDEsc , date: date2}, //this sends the user-id to php as a post variable, in php it can be accessed as $_POST['uid']
+                            success: function(data){
+                                data = JSON.parse(data);
+
+                                alert( 'data["meeting_title"];');
+                                //update some fields with the updated data
+                                //you can access the data like 'data["driver"]'
+                            }
+                        });
+
+
+                        $('#reload').load(document.URL +  ' #reload');
+
+                        CloseModalBox();
+
                     });
                 }
             });
+
             $('#new-event-add').on('click', function (event) {
                 event.preventDefault();
                 var event_name = $('#new-event-title').val();
@@ -250,17 +345,63 @@
                 }
             });
 
-//
+
+
 // Load scripts and draw Calendar
 //
             function DrawFullCalendar() {
                 LoadCalendarScript(DrawCalendar);
             }
 
+            var meetingTitle = document.getElementById('displayss').value;
+            //alert(meetingTitle);
+            $('#calendar').fullCalendar({
+                defaultDate: meetingDate,
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: [
+                    {
+                        title:  meetingTitle,
+                        start: meetingDate
+                    }
+                ]
+            });
+
+
         })
 
     </script>
 
+
+
+
+
+
+
+
+    <!-- Bootstrap 3.3.2 -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/public/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/public/css/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+    <!-- Morris chart -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <!-- jvectormap -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- Date Picker -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link href="http://localhost/SE_Repo/S.E-Final-/resources/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -268,9 +409,30 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+
+    <link rel="stylesheet" href="http://localhost/SE_Repo/S.E-Final-/public/css/jquery-ui.css">
 </head>
 <body class="skin-blue">
-<div class="wrapper">
+<div id="modalbox">
+    <div class="devoops-modal">
+        <div class="devoops-modal-header">
+            <div class="modal-header-name">
+                <span>Basic table</span>
+            </div>
+            <div class="box-icons">
+                {{--class="close-link"--}}
+                <a  class="event_cancel">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="devoops-modal-inner">
+        </div>
+        <div class="devoops-modal-bottom">
+        </div>
+    </div>
+</div>
 
  @include('FAheader')
 

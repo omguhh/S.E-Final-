@@ -60,7 +60,7 @@ class WalletController extends Controller {
 //            ->select('cash_balance')
             ->where('rc_name','=', 'shamoel khan')
             ->get();
-        
+
         $inc_moneys = \Request::input('transfer_bal');
         $sum =intval($inc_moneys) + intval($moneys[0]['cash_balance']);
 
