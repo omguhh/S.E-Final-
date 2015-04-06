@@ -136,7 +136,7 @@ $conn->close();
 
 
             var calendar = $('#calendar').fullCalendar({
-                defaultDate: meetingDate,
+                defaultDate: "2015-04-04",
                 eventLimit: true, // allow "more" link when too many events
                 events: [
                     {
