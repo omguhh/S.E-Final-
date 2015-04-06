@@ -6,7 +6,7 @@ class Calender_meeting extends \Eloquent {
 
     protected $table = 'calender_meeting';
 	protected $fillable = [];
-
+    public $timestamps = false;
     public function FinancialAdvisor()
     {
         return $this->belongsTo('FinancialAdvisor','fa_name');

@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Calender_meeting;
 use App\Purchase_history;
 use App\Registered_Client;
+use App\Stocks;
 use Illuminate\Routing\Controller;
 
 class ClientController extends Controller {
@@ -48,14 +50,40 @@ class ClientController extends Controller {
 	 */
 	public function show()
 	{
+        $clients  = Registered_Client::all(['rc_name'])->first()
+            ->select('cash_balance','rc_name')
+            ->where('rc_name','=', 'naiyarah hussain')
+            ->get();
 
-		return \View::make('clientport/display');
+		return \View::make('clientport/display')->with('deets',$clients);;
 	}
+
+    public function get_bookmarked(){
+
+        $clients  = Stocks::all(['client_name'])->first()
+            ->select('stock_name','stock_price','fa_name','client_name','date_bookmarked')
+            ->where('client_name','=', 'naiyarah hussain')
+            ->get();
+
+        return \View::make('clientport.watchlist')->with('clients',$clients);
+    }
+
+    public function view_meetings(){
+
+       $pls = Calender_meeting::all(['rc_id'])->first()
+           //fa_name`, `rc_id`, `meeting_title`, `meeting_date`, `meeting_content`
+           ->select('fa_name','rc_id','meeting_title','meeting_date','meeting_content')
+            ->where('rc_id','=', 'nai')
+            ->get();
+
+        return \View::make('clientport.upcomingmeetings')->with('clients',$pls);
+    }
 
     public function display_holdings(){
 
             $clients  = Purchase_history::all(['client_name'])->first()
             ->select('client_name','fa_name','stock_name','quantity','time_purchased')
+            ->where('client_name','=', 'naiyarah hussain')
             ->get();
 
         return \View::make('clientport.holdings')->with('clients',$clients);

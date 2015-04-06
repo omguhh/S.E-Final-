@@ -6,7 +6,7 @@
         <div class="col-md-12 column">
             <div class="page-header">
                 <h1>
-                    Bob Burger's Portfolio
+                    Naiyarah Hussain's Portfolio
                 </h1>
             </div>
             <ul class="nav nav-pills">
@@ -17,10 +17,14 @@
                     {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                 </li>
                 <li>
-                    <a href="#">Stock Watchlist</a>
+                    {!! HTML::linkRoute('clientport/display/watchlist', 'Watchlist') !!}
                 </li>
                 <li class="active">
-                    <a href="#">Personal Details</a>
+                    {!! HTML::linkRoute('clientport/display/mydetails', 'Personal Data') !!}
+                </li>
+
+                <li>
+                    {!! HTML::linkRoute('clientport/display/purchasehistory', 'Purchase History') !!}
                 </li>
 
                 <li>
@@ -28,9 +32,12 @@
                 </li>
 
                 <li>
-                    <a href="#">Wallet</a>
+                    {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                 </li>
 
+                <li>
+                    {!! HTML::linkRoute('clientport/display/calendar', 'Calendar') !!}
+                </li>
             </ul>
 
             <div class="container " >

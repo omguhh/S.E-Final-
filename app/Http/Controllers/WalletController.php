@@ -3,6 +3,7 @@
 use App\Http\Requests\Request;
 use App\Registered_Client;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class WalletController extends Controller {
 
@@ -52,20 +53,26 @@ class WalletController extends Controller {
         return \View::make('clientport/display');
     }
 
+    public function display_holdings(){
 
+        //     $clients  = Purchase_history::all(['client_name'])->first()
+        //     ->select('client_name','fa_name','stock_name','quantity','time_purchased')
+        //     ->get();
+
+        // return \View::make('clientport.holdings')->with('clients',$clients);
+    }
 
     public function add_balance(){
 
-        $moneys  = Registered_Client   ::all(['cash_balance'])->first()
-//            ->select('cash_balance')
-            ->where('rc_name','=', 'shamoel khan')
+        $moneys  = Registered_Client::all(['cash_balance'])->first()
+            ->select('cash_balance')
+            ->where('rc_name','=', 'naiyarah hussain')
             ->get();
 
         $inc_moneys = \Request::input('transfer_bal');
-        $sum =intval($inc_moneys) + intval($moneys[0]['cash_balance']);
+        $sum = $inc_moneys + $moneys[0]['cash_balance'];
 
-
-        $new_bal = Registered_Client::where('rc_name', 'shamoel khan')-> update(['cash_balance'=>$sum]);
+        $new_bal = Registered_Client::where('rc_name', 'naiyarah hussain')-> update(['cash_balance'=>$sum]);
         return \View::make('clientport.wallet')->with('moneys',$moneys);
 
     }
@@ -76,11 +83,10 @@ class WalletController extends Controller {
 
         $moneys  = Registered_Client   ::all(['cash_balance'])->first()
             ->select('cash_balance')
-            ->where('rc_name','=', 'shamoel khan')
+            ->where('rc_name','=', 'naiyarah hussain')
             ->get();
         return \View::make('clientport.wallet')->with('moneys',$moneys);
     }
-
     /**
      * Show the form for editing the specified resource.
      * GET /client/{id}/edit

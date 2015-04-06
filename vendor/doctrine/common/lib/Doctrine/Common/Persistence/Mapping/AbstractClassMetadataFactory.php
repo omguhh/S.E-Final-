@@ -21,6 +21,10 @@ namespace Doctrine\Common\Persistence\Mapping;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Util\ClassUtils;
+<<<<<<< HEAD
+=======
+use ReflectionException;
+>>>>>>> origin/master
 
 /**
  * The ClassMetadataFactory is used to create ClassMetadata objects that contain all the
@@ -50,7 +54,11 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
     private $cacheDriver;
 
     /**
+<<<<<<< HEAD
      * @var array
+=======
+     * @var ClassMetadata[]
+>>>>>>> origin/master
      */
     private $loadedMetadata = array();
 
@@ -89,7 +97,11 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
     /**
      * Returns an array of all the loaded metadata currently in memory.
      *
+<<<<<<< HEAD
      * @return array
+=======
+     * @return ClassMetadata[]
+>>>>>>> origin/master
      */
     public function getLoadedMetadata()
     {
@@ -178,7 +190,14 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
      *
      * @param string $className The name of the class.
      *
+<<<<<<< HEAD
      * @return \Doctrine\Common\Persistence\Mapping\ClassMetadata
+=======
+     * @return ClassMetadata
+     *
+     * @throws ReflectionException
+     * @throws MappingException
+>>>>>>> origin/master
      */
     public function getMetadataFor($className)
     {
@@ -186,6 +205,7 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
             return $this->loadedMetadata[$className];
         }
 
+<<<<<<< HEAD
         $realClassName = $className;
 
         // Check for namespace alias
@@ -194,10 +214,20 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
             $realClassName = $this->getFqcnFromAlias($namespaceAlias, $simpleClassName);
         } else {
             $realClassName = ClassUtils::getRealClass($realClassName);
+=======
+        // Check for namespace alias
+        if (strpos($className, ':') !== false) {
+            list($namespaceAlias, $simpleClassName) = explode(':', $className, 2);
+
+            $realClassName = $this->getFqcnFromAlias($namespaceAlias, $simpleClassName);
+        } else {
+            $realClassName = ClassUtils::getRealClass($className);
+>>>>>>> origin/master
         }
 
         if (isset($this->loadedMetadata[$realClassName])) {
             // We do not have the alias name in the map, include it
+<<<<<<< HEAD
             $this->loadedMetadata[$className] = $this->loadedMetadata[$realClassName];
 
             return $this->loadedMetadata[$realClassName];
@@ -219,6 +249,40 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
         }
 
         if ($className != $realClassName) {
+=======
+            return $this->loadedMetadata[$className] = $this->loadedMetadata[$realClassName];
+        }
+
+        $loadingException = null;
+
+        try {
+            if ($this->cacheDriver) {
+                if (($cached = $this->cacheDriver->fetch($realClassName . $this->cacheSalt)) !== false) {
+                    $this->loadedMetadata[$realClassName] = $cached;
+
+                    $this->wakeupReflection($cached, $this->getReflectionService());
+                } else {
+                    foreach ($this->loadMetadata($realClassName) as $loadedClassName) {
+                        $this->cacheDriver->save(
+                            $loadedClassName . $this->cacheSalt,
+                            $this->loadedMetadata[$loadedClassName],
+                            null
+                        );
+                    }
+                }
+            } else {
+                $this->loadMetadata($realClassName);
+            }
+        } catch (MappingException $loadingException) {
+            if (! $fallbackMetadataResponse = $this->onNotFoundMetadata($realClassName)) {
+                throw $loadingException;
+            }
+
+            $this->loadedMetadata[$realClassName] = $fallbackMetadataResponse;
+        }
+
+        if ($className !== $realClassName) {
+>>>>>>> origin/master
             // We do not have the alias name in the map, include it
             $this->loadedMetadata[$className] = $this->loadedMetadata[$realClassName];
         }
@@ -335,6 +399,23 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Provides a fallback hook for loading metadata when loading failed due to reflection/mapping exceptions
+     *
+     * Override this method to implement a fallback strategy for failed metadata loading
+     *
+     * @param string $className
+     *
+     * @return \Doctrine\Common\Persistence\Mapping\ClassMetadata|null
+     */
+    protected function onNotFoundMetadata($className)
+    {
+        return null;
+    }
+
+    /**
+>>>>>>> origin/master
      * Actually loads the metadata from the underlying metadata.
      *
      * @param ClassMetadata      $class
@@ -367,7 +448,11 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
 
         // Check for namespace alias
         if (strpos($class, ':') !== false) {
+<<<<<<< HEAD
             list($namespaceAlias, $simpleClassName) = explode(':', $class);
+=======
+            list($namespaceAlias, $simpleClassName) = explode(':', $class, 2);
+>>>>>>> origin/master
             $class = $this->getFqcnFromAlias($namespaceAlias, $simpleClassName);
         }
 

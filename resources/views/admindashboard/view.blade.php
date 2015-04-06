@@ -7,7 +7,7 @@
     <h1> User Administration</h1>
 
         {!! Form::open(array('route' => 'admin_dashboard/add')) !!}
-        {!! Form::submit('Add', ['class' => 'btn btn-success']) !!}
+        {!! Form::submit('Add Client', ['class' => 'btn btn-success']) !!}
         {!! Form::close() !!}
 
     {{--<a href={{route("admin_dashboard/addclient")}} class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add New Client</a>--}}

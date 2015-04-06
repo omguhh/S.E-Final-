@@ -1,6 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="MySQL - pi_test@localhost" uuid="18c1b4b3-bbce-4699-8f8b-3a04ee727bd9">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <database-info product="MySQL" version="5.6.21" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="pi_test"/>
+    <table name="admin" schema="" catalog="pi_test" type="TABLE">
+      <column name="admin_id" sqlType="VARCHAR" precision="12" scale="0" nullable="false" jdbcType="12"/>
+      <column name="admin_name" sqlType="VARCHAR" precision="35" scale="0" nullable="false" jdbcType="12"/>
+      <column name="admin_phone" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="admin_email" sqlType="VARCHAR" precision="35" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="admin_password" sqlType="VARCHAR" precision="18" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="admin_id"/>
+      <foreign-key name="admin_ibfk_1" columns="user_id" ref-table="user_id" ref-schema="" ref-catalog="pi_test" ref-columns="user_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="admin_name" unique="true" columns="admin_name"/>
+    </table>
+    <table name="calender_meeting" schema="" catalog="pi_test" type="TABLE">
+      <column name="fa_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rc_id" sqlType="VARCHAR" precision="12" scale="0" nullable="false" jdbcType="12"/>
+      <column name="meeting_title" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="meeting_date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="meeting_content" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="fa_name,rc_id,meeting_date"/>
+      <foreign-key name="calender_meeting_ibfk_1" columns="fa_name" ref-table="financial_advisor" ref-schema="" ref-catalog="pi_test" ref-columns="fa_name" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="calender_meeting_ibfk_2" columns="rc_id" ref-table="registered_client" ref-schema="" ref-catalog="pi_test" ref-columns="rc_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="financial_advisor" schema="" catalog="pi_test" type="TABLE">
+      <column name="fa_id" sqlType="VARCHAR" precision="12" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fa_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fa_email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fa_address" sqlType="VARCHAR" precision="65" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fa_phone" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fa_rating" sqlType="SET" precision="34" scale="0" nullable="false" jdbcType="1"/>
+      <column name="years_experience" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="certificate" sqlType="VARCHAR" precision="65" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fa_password" sqlType="VARCHAR" precision="18" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="fa_id"/>
+      <foreign-key name="financial_advisor_ibfk_1" columns="user_id" ref-table="user_id" ref-schema="" ref-catalog="pi_test" ref-columns="user_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="calender_meeting_ibfk_1" table="calender_meeting" schema="" catalog="pi_test" columns="fa_name"/>
+      <exported-key name="purchase_history_ibfk_2" table="purchase_history" schema="" catalog="pi_test" columns="fa_name"/>
+      <exported-key name="registered_client_ibfk_1" table="registered_client" schema="" catalog="pi_test" columns="fa_name_fk"/>
+      <exported-key name="stocks_ibfk_1" table="stocks" schema="" catalog="pi_test" columns="fa_name"/>
+      <index name="fa_id" unique="false" columns="fa_id"/>
+      <index name="fa_name" unique="false" columns="fa_name"/>
+    </table>
+    <table name="purchase_history" schema="" catalog="pi_test" type="TABLE">
+      <column name="client_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fa_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="stock_name" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="time_purchased" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="client_name,fa_name,stock_name"/>
+      <foreign-key name="purchase_history_ibfk_1" columns="client_name" ref-table="registered_client" ref-schema="" ref-catalog="pi_test" ref-columns="rc_name" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="purchase_history_ibfk_2" columns="fa_name" ref-table="financial_advisor" ref-schema="" ref-catalog="pi_test" ref-columns="fa_name" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="date_brought" unique="false" columns="time_purchased"/>
+      <index name="date_brought_2" unique="false" columns="time_purchased"/>
+      <index name="stock_id_fk" unique="false" columns="stock_name"/>
+    </table>
+    <table name="registered_client" schema="" catalog="pi_test" type="TABLE">
+      <column name="rc_id" sqlType="VARCHAR" precision="12" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rc_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rc_email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rc_address" sqlType="VARCHAR" precision="65" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rc_phone" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cash_balance" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fa_name_fk" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="client_password" sqlType="VARCHAR" precision="18" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="rc_id"/>
+      <foreign-key name="registered_client_ibfk_1" columns="fa_name_fk" ref-table="financial_advisor" ref-schema="" ref-catalog="pi_test" ref-columns="fa_name" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="registered_client_ibfk_2" columns="user_id" ref-table="user_id" ref-schema="" ref-catalog="pi_test" ref-columns="user_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="calender_meeting_ibfk_2" table="calender_meeting" schema="" catalog="pi_test" columns="rc_id"/>
+      <exported-key name="purchase_history_ibfk_1" table="purchase_history" schema="" catalog="pi_test" columns="client_name"/>
+      <index name="wallet_id" unique="true" columns="cash_balance"/>
+      <index name="rc_name" unique="false" columns="rc_name"/>
+    </table>
+    <table name="roles" schema="" catalog="pi_test" type="TABLE">
+      <column name="role_name" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="role_name"/>
+      <exported-key name="user_id_ibfk_1" table="user_id" schema="" catalog="pi_test" columns="role"/>
+    </table>
+    <table name="stocks" schema="" catalog="pi_test" type="TABLE">
+      <column name="stock_name" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="stock_price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fa_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date_bookmarked" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="stock_name,fa_name,date_bookmarked"/>
+      <foreign-key name="stocks_ibfk_1" columns="fa_name" ref-table="financial_advisor" ref-schema="" ref-catalog="pi_test" ref-columns="fa_name" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fa_id" unique="true" columns="fa_name"/>
+    </table>
+    <table name="user_id" schema="" catalog="pi_test" type="TABLE">
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="role" sqlType="VARCHAR" precision="12" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="user_id"/>
+      <foreign-key name="user_id_ibfk_1" columns="role" ref-table="roles" ref-schema="" ref-catalog="pi_test" ref-columns="role_name" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="admin_ibfk_1" table="admin" schema="" catalog="pi_test" columns="user_id"/>
+      <exported-key name="financial_advisor_ibfk_1" table="financial_advisor" schema="" catalog="pi_test" columns="user_id"/>
+      <exported-key name="registered_client_ibfk_2" table="registered_client" schema="" catalog="pi_test" columns="user_id"/>
+    </table>
   </data-source>
 </component>

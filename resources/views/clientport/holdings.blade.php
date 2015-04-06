@@ -1,6 +1,4 @@
 @extends('thing')
-
-
 @section('content')
 
 
@@ -9,7 +7,7 @@
                         <div class="col-md-12 column">
                             <div class="page-header">
                                 <h1>
-                                    Bob Burger's Portfolio
+                                    Naiyarah Hussain's Portfolio
                                 </h1>
                             </div>
                             <ul class="nav nav-pills">
@@ -20,7 +18,7 @@
                                     {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                                 </li>
                                 <li>
-                                    <a href="#">Stock Watchlist</a>
+                                    {!! HTML::linkRoute('clientport/display/watchlist', 'Watchlist') !!}
                                 </li>
                                 <li>
                                     {!! HTML::linkRoute('clientport/display/mydetails', 'Personal Data') !!}
@@ -31,8 +29,13 @@
                                 </li>
 
                                 <li>
-                                    <a href="#">Wallet</a>
+                                    {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                                 </li>
+
+                                <li>
+                                    {!! HTML::linkRoute('clientport/display/calendar', 'Calendar') !!}
+                                </li>
+
                             </ul>
 
 
@@ -51,6 +54,9 @@
                                     <th>
                                         Quantity
                                     </th>
+                                    <th>
+                                        Action
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -61,6 +67,9 @@
                                     <td>{{$clients[$i]['time_purchased']}}</td>
                                     <td>{{$clients[$i]['quantity']}}</td>
 
+                                     {!! Form::open(['method' => 'POST', 'route' => ['browsemarket/sell_stocks',$clients[$i]['stock_name']]]) !!}
+                                     <td> {!! Form::submit('Sell', ['class'=>'btn btn-danger btn-lg']) !!} </td>
+                                     {!! Form::close() !!}
                                 </tr>
                                 @endfor
 
