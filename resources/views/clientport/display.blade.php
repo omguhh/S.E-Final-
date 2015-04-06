@@ -74,7 +74,7 @@
                 <li class="active">
                     {!! HTML::linkRoute('clientport/display/', 'Home') !!}
                 </li>
-                <li>
+             <li>
                     {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                 </li>
                 <li>
@@ -85,6 +85,10 @@
                 </li>
 
                 <li>
+                    {!! HTML::linkRoute('clientport/display/purchasehistory', 'Purchase History') !!}
+                </li>
+
+                <li>
                     {!! HTML::linkRoute('browsemarket', 'Market Insights') !!}
                 </li>
 
@@ -92,6 +96,9 @@
                     {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                 </li>
 
+                <li>
+                    {!! HTML::linkRoute('clientport/display/calendar', 'Calendar') !!}
+                </li>
             </ul>
 
             <div id="containerz" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

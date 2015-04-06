@@ -14,7 +14,7 @@
                     <li>
                         {!! HTML::linkRoute('clientport/display/', 'Home') !!}
                     </li>
-                    <li class="active">
+                    <li>
                         {!! HTML::linkRoute('clientport/display/holdings', 'Holdings') !!}
                     </li>
                     <li>
@@ -35,45 +35,37 @@
                     <li>
                         {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                     </li>
-
-                    <li>
+                    <li class="active">
                         {!! HTML::linkRoute('clientport/display/calendar', 'Calendar') !!}
                     </li>
                 </ul>
-
 
                 <table class="table">
                     <thead>
                     <tr>
                         <th>
-                            Stock Name
+                           Financial Advisor Name
                         </th>
                         <th>
-                            Stock Price
+                           Your ID
                         </th>
                         <th>
-                            Financial Advisor
+                          Meeting Title
                         </th>
                         <th>
-                            Client Dude
+                           Side comments
                         </th>
-                        <th>
-                           Date Bookmarked
-                        </th>
+
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         @for ($i = 0; $i < count($clients); $i++)
-                            <td>{{$clients[$i]['stock_name']}}</td>
-                            <td>{{$clients[$i]['stock_price']}}</td>
                             <td>{{$clients[$i]['fa_name']}}</td>
-                            <td>{{$clients[$i]['client_name']}}</td>
-                            <td>{{$clients[$i]['date_bookmarked']}}</td>
+                            <td>{{$clients[$i]['rc_id']}}</td>
+                            <td>{{$clients[$i]['meeting_title']}}</td>
+                            <td>{{$clients[$i]['meeting_content']}}</td>
 
-                            {!! Form::open(['method' => 'POST', 'route' => ['browsemarket/sell_stocks',$clients[$i]['stock_name']]]) !!}
-                            <td> {!! Form::submit('Sell', ['class'=>'btn btn-danger btn-lg']) !!} </td>
-                            {!! Form::close() !!}
                     </tr>
                     @endfor
 

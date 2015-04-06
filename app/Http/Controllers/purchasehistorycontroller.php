@@ -32,7 +32,8 @@ class purchasehistorycontroller extends Controller {
 		///  SELECT rc_name FROM registered_client,financial_advisor WHERE registered_client.fa_name_fk = financial_advisor.fa_name GROUP BY rc_name
 
 		$clients  = Purchase_history::all(['fa_name'])->first()
-			->select('client_name','fa_name','stock_name','date_brought')
+			->select('client_name','fa_name','stock_name','time_purchased')
+            ->where('client_name','=','naiyarah hussain')
 			->get();
 
 		 return \View::make('PurchaseHistory')->with('purch',$clients);

@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Calender_meeting;
 use App\Purchase_history;
 use App\Registered_Client;
 use App\Stocks;
@@ -65,6 +66,17 @@ class ClientController extends Controller {
             ->get();
 
         return \View::make('clientport.watchlist')->with('clients',$clients);
+    }
+
+    public function view_meetings(){
+
+       $pls = Calender_meeting::all(['rc_id'])->first()
+           //fa_name`, `rc_id`, `meeting_title`, `meeting_date`, `meeting_content`
+           ->select('fa_name','rc_id','meeting_title','meeting_date','meeting_content')
+            ->where('rc_id','=', 'nai')
+            ->get();
+
+        return \View::make('clientport.upcomingmeetings')->with('clients',$pls);
     }
 
     public function display_holdings(){

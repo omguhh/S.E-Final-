@@ -167,14 +167,14 @@ class BrowseMarketController extends Controller
        // echo $checker;
         $checker = array_filter($killmeplz);
         if($yourbalance[0]['cash_balance'] < $final_price){
-            return view('clientport.holdings');
+            return redirect()->route('clientport/display/');
     }
 
         if(!empty($checker)){
 
           \DB::update("update purchase_history set quantity = quantity+ $quantity  where client_name = 'naiyarah hussain' AND stock_name='$name'");
           \DB::update("update registered_client set cash_balance = cash_balance - $final_price  where rc_name = 'naiyarah hussain'"); //dis works
-            return view('clientport.holdings');
+            return redirect()->route('clientport/display/');
       }
 else {
     $rc_user->client_name = "naiyarah hussain";
@@ -185,8 +185,7 @@ else {
     $rc_user->save();
 
     \DB::update("update registered_client set cash_balance = cash_balance - $final_price  where rc_name = 'naiyarah hussain'");
-    return view('clientport.holdings');
-
+    return redirect()->route('clientport/display');
 
 }
 
@@ -253,18 +252,22 @@ else {
 
             \DB::update("update purchase_history set quantity = quantity- $quantity  where client_name = 'naiyarah hussain' AND stock_name='$name'");
             \DB::update("update registered_client set cash_balance = cash_balance + $final_price  where rc_name = 'naiyarah hussain'"); //dis works
-            return view('clientport/display');
+            return redirect()->route('clientport/display/');
         }
 
         elseif($checker[0]['quantity']=1){
 
             purchase_history::all()->first()->where('client_name','=','naiyarah hussain')->where('stock_name','=','$name')->delete();
             \DB::update("update registered_client set cash_balance = cash_balance + $final_price  where rc_name = 'naiyarah hussain'");
-            return view('clientport/display');
+
+            return redirect()->route('clientport/display/');
+           // return view('clientport/display');
         }
 
         elseif($yourbalance[0]['cash_balance'] < $final_price){
-            return view('clientport/display');
+
+            return redirect()->route('clientport/display/');
+           // return view('clientport/display');
         }
 
     }

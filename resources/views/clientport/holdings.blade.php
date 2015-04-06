@@ -1,6 +1,4 @@
 @extends('thing')
-
-
 @section('content')
 
 
@@ -9,7 +7,7 @@
                         <div class="col-md-12 column">
                             <div class="page-header">
                                 <h1>
-                                    Bob Burger's Portfolio
+                                    Naiyarah Hussain's Portfolio
                                 </h1>
                             </div>
                             <ul class="nav nav-pills">
@@ -33,6 +31,11 @@
                                 <li>
                                     {!! HTML::linkRoute('clientport/display/wallet', 'Wallet') !!}
                                 </li>
+
+                                <li>
+                                    {!! HTML::linkRoute('clientport/display/calendar', 'Calendar') !!}
+                                </li>
+
                             </ul>
 
 

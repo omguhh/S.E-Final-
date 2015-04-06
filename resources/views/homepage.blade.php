@@ -72,14 +72,18 @@
 
     <section class="popupBody">
         <div class="user_login">
-            <form action="http://localhost/SE_Repo/S.E-Final-/resources/views/checklogin.php" method="post">
-                <label>Email</label> <input name="username" type="text" id="username"><br>
-                <label>Password</label> <input name="password" type="password"><br>
+
+            {!! Form::open(['method' => 'POST', 'route' => ['validation']]) !!}
+
+            {!! Form::text('username') !!}
+            {!! Form::text('password') !!}
 
                 <div class="action_btns">
 
                     <div class="one_half last">
-                        <input type="submit" class="btn btn_red" name="Submit" value="Login">
+
+                        {!! Form::submit('Login', ['class'=>'btn btn_red']) !!}
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </form>
