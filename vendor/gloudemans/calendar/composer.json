@@ -1,0 +1,21 @@
+{
+    "name": "gloudemans/calendar",
+    "description": "Laravel 4 Calendar, port of the CodeIgniter Calender Library",
+    "keywords": ["laravel", "calendar"],
+    "authors": [
+        {
+            "name": "Rob Gloudemans",
+            "email": "Rob_Gloudemans@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "~4|~5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Gloudemans\\Calendar": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
