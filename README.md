@@ -5,7 +5,7 @@ C:\xampp\htdocs\SE_Repo\S.E-Final-
 
 To view it on your browser type in http://localhost/SE_Repo/S.E-Final-/public/
 
-##YOU NEED TO TYPE THESE COMMANDS IN THE PHP TERMINAL IN ORDER TO GET IT RUNNING
+## YOU NEED TO TYPE THESE COMMANDS IN THE PHP TERMINAL IN ORDER TO GET IT RUNNING
 
 php artisan clear-compiled
 
@@ -13,10 +13,10 @@ php artisan optimize
 
 php artisan cache:clear
 
-##WAIT LIKE 5 MINUTES AND THEN REFRESH THE BROWSER
+## WAIT LIKE 5 MINUTES AND THEN REFRESH THE BROWSER
 
-!!(When you're pushing the project for the first time make sure you're setting the parent path to xampp and not the default
-project path by PHPStorm)!!
+(When you're pushing the project for the first time make sure you're setting the parent path to xampp and not the default
+project path by PHPStorm)
 
 
 Good luck :) 
